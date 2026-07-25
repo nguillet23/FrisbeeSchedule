@@ -11,19 +11,22 @@ const schedule = {
     {
       category: "Category1",
       start: "1:00 PM",
-      end: "5:00 PM"
+      end: "5:00 PM",
+      location: "Main Office"
     },
     {
       category: "Category2",
       start: "6:00 PM",
-      end: "7:30 PM"
+      end: "7:30 PM",
+      location: "Downtown Studio"
     }
   ],
   Tuesday: [
     {
       category: "Category2",
       start: "12:00 PM",
-      end: "2:00 PM"
+      end: "2:00 PM",
+      location: "Downtown Studio"
     }
   ],
   Wednesday: [],
@@ -31,7 +34,8 @@ const schedule = {
     {
       category: "Category1",
       start: "1:00 PM",
-      end: "5:00 PM"
+      end: "5:00 PM",
+      location: "Main Office"
     }
   ],
   Friday: [],
@@ -39,7 +43,8 @@ const schedule = {
     {
       category: "Category2",
       start: "2:00 PM",
-      end: "4:00 PM"
+      end: "4:00 PM",
+      location: "Community Center"
     }
   ],
   Sunday: []
@@ -139,6 +144,15 @@ function renderSchedule() {
 
         entryElement.appendChild(categoryBadge);
         entryElement.appendChild(timeText);
+
+        // Location subtitle (only rendered if a location is provided)
+        if (entry.location) {
+          const locationText = document.createElement("span");
+          locationText.className = "location";
+          locationText.textContent = entry.location;
+          entryElement.appendChild(locationText);
+        }
+
         gridContainer.appendChild(entryElement);
       });
 

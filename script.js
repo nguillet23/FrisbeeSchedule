@@ -69,21 +69,18 @@ function renderTimeAxis() {
   const timeAxis = document.getElementById("timeAxis");
   timeAxis.innerHTML = "";
   
-  const startHour = 12; // 12 PM
+  const startHour = 10; // 10 AM
   const endHour = 22; // 10 PM
   const hourHeight = 60; // pixels per hour
-  
+
   for (let hour = startHour; hour <= endHour; hour++) {
     const timeLabel = document.createElement("div");
     timeLabel.className = "time-label";
     timeLabel.style.height = hourHeight + "px";
-    
-    let displayHour = hour;
-    let period = "PM";
-    if (hour > 12) {
-      displayHour = hour - 12;
-    }
-    
+
+    const displayHour = hour % 12 === 0 ? 12 : hour % 12;
+    const period = hour < 12 ? "AM" : "PM";
+
     timeLabel.textContent = `${displayHour}:00 ${period}`;
     timeAxis.appendChild(timeLabel);
   }
@@ -95,7 +92,7 @@ function renderSchedule() {
   scheduleElement.innerHTML = "";
 
   const dayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  const startHour = 12; // 12 PM (noon)
+  const startHour = 10; // 10 AM
   const endHour = 22; // 10 PM
   const hourHeight = 60; // pixels per hour
   const totalHours = endHour - startHour;

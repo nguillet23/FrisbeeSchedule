@@ -157,7 +157,15 @@ h1 {
   line-height: 1.2;
 }
 
-/* Category 1 Styling - Forest Green */
+.location {
+  font-size: 0.65rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-top: 2px;
+  opacity: 0.85;
+}
+
+/* Category 1 Styling - Forest Green (Practice) */
 .entry.category-1 {
   background: #b8d4a8;
   border-left-color: #6b8e5f;
@@ -172,7 +180,11 @@ h1 {
   color: #5a7548;
 }
 
-/* Category 2 Styling - Terracotta */
+.entry.category-1 .location {
+  color: #4a6439;
+}
+
+/* Category 2 Styling - Terracotta (Throws) */
 .entry.category-2 {
   background: #d9b89f;
   border-left-color: #b8743e;
@@ -185,6 +197,10 @@ h1 {
 
 .entry.category-2 .time {
   color: #9a6b48;
+}
+
+.entry.category-2 .location {
+  color: #8b5a38;
 }
 
 /* Category 3 Styling - Dusty Blue */
@@ -200,6 +216,10 @@ h1 {
 
 .entry.category-3 .time {
   color: #5a7a8b;
+}
+
+.entry.category-3 .location {
+  color: #4a6a7b;
 }
 
 /* Responsive Design */
@@ -236,6 +256,10 @@ h1 {
 
   .time {
     font-size: 0.7rem;
+  }
+
+  .location {
+    font-size: 0.6rem;
   }
 }
 
@@ -282,6 +306,10 @@ h1 {
   .time {
     font-size: 0.65rem;
   }
+
+  .location {
+    font-size: 0.55rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -323,5 +351,9 @@ h1 {
 
   .time {
     font-size: 0.6rem;
+  }
+
+  .location {
+    font-size: 0.5rem;
   }
 }

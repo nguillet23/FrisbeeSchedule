@@ -1,50 +1,50 @@
 // Category Configuration
 const categories = {
-  Category1: "category-1",
-  Category2: "category-2",
-  Category3: "category-3"
+  Practice: "category-1",
+  Throws: "category-2",
 };
 
 // Schedule Data
 const schedule = {
   Monday: [
     {
-      category: "Category1",
-      start: "1:00 PM",
-      end: "5:00 PM",
-      location: "Main Office"
-    },
-    {
-      category: "Category2",
-      start: "6:00 PM",
-      end: "7:30 PM",
-      location: "Downtown Studio"
+      category: "Practice",
+      start: "5:00 PM",
+      end: "7:00 PM",
+      location: "Pike Field"
     }
   ],
-  Tuesday: [
+  Tuesday: [],
+  Wednesday: [
     {
-      category: "Category2",
-      start: "12:00 PM",
-      end: "2:00 PM",
-      location: "Downtown Studio"
+      category: "Practice",
+      start: "5:00 PM",
+      end: "7:00 PM",
+      location: "Pike Field"
     }
   ],
-  Wednesday: [],
   Thursday: [
     {
-      category: "Category1",
-      start: "1:00 PM",
-      end: "5:00 PM",
-      location: "Main Office"
+      category: "Throws",
+      start: "6:00 PM",
+      end: "7:00 PM",
+      location: "Sheehan Beach"
     }
   ],
-  Friday: [],
+  Friday: [
+    {
+      category: "Throws",
+      start: "12:00 PM",
+      end: "4:00 PM",
+      location: "Where Ever"
+    }
+  ],
   Saturday: [
     {
-      category: "Category2",
+      category: "Throws",
       start: "2:00 PM",
       end: "4:00 PM",
-      location: "Community Center"
+      location: "Where Ever"
     }
   ],
   Sunday: []

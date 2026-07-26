@@ -135,6 +135,7 @@ h1 {
   border-left: 4px solid;
   transition: all 0.2s ease;
   cursor: pointer;
+  gap: 2px;
 }
 
 .entry:hover {
@@ -147,7 +148,6 @@ h1 {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 4px;
   line-height: 1.2;
 }
 
@@ -161,7 +161,6 @@ h1 {
   font-size: 0.65rem;
   font-weight: 400;
   line-height: 1.2;
-  margin-top: 2px;
   opacity: 0.85;
 }
 
@@ -222,6 +221,44 @@ h1 {
   color: #4a6a7b;
 }
 
+/* Category 4 Styling - Golden (Games) */
+.entry.category-4 {
+  background: #f7e9c7;
+  border-left-color: #d09b2c;
+  color: #5a4210;
+}
+
+.entry.category-4 .category-badge {
+  color: #5a4210;
+}
+
+.entry.category-4 .time {
+  color: #8a5f2a;
+}
+
+.entry.category-4 .location {
+  color: #70521d;
+}
+
+/* Category 5 Styling - Lavender (Pickup) */
+.entry.category-5 {
+  background: #e9ddf6;
+  border-left-color: #8c63b3;
+  color: #3b2b55;
+}
+
+.entry.category-5 .category-badge {
+  color: #3b2b55;
+}
+
+.entry.category-5 .time {
+  color: #6b5590;
+}
+
+.entry.category-5 .location {
+  color: #5a4776;
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .calendar-header {
@@ -252,6 +289,7 @@ h1 {
 
   .category-badge {
     font-size: 0.65rem;
+    margin-bottom: 0;
   }
 
   .time {
@@ -300,7 +338,6 @@ h1 {
 
   .category-badge {
     font-size: 0.6rem;
-    margin-bottom: 2px;
   }
 
   .time {
@@ -347,6 +384,7 @@ h1 {
 
   .category-badge {
     font-size: 0.55rem;
+    margin-bottom: 0;
   }
 
   .time {

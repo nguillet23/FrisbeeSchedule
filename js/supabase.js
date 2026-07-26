@@ -1,7 +1,5 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
-
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config.js";
-
 
 export const supabase = createClient(
     SUPABASE_URL,
@@ -9,9 +7,39 @@ export const supabase = createClient(
 );
 
 
-// Get names for dropdown
-export async function getMembers() {
+// Admin login
+export async function loginAdmin(email, password) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+    });
 
+    if (error) {
+        return {
+            session: null,
+            error
+        };
+    }
+
+    return {
+        session: data.session,
+        error: null
+    };
+}
+
+
+// Admin logout
+export async function logoutAdmin() {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+        console.error("Logout error:", error);
+    }
+}
+
+
+// Get members
+export async function getMembers() {
     const { data, error } = await supabase
         .from("members")
         .select("*")
@@ -26,49 +54,24 @@ export async function getMembers() {
 }
 
 
-// Replace a person's availability
+// Update availability
 export async function updateAvailability(memberId, availability) {
 
-    const { data: existingRows } = await supabase
-    .from("availability")
-    .select("*")
-    .eq("member_id", memberId);
-
-    // Delete old availability
-    const { error: deleteError, data: deleteData } = await supabase
+    const { error: deleteError } = await supabase
         .from("availability")
         .delete()
-        .eq("member_id", memberId)
-        .select();
+        .eq("member_id", memberId);
 
     if (deleteError) {
-        console.error("Error deleting old availability:", deleteError);
+        console.error("Error deleting availability:", deleteError);
         return;
     }
 
-    // Insert new availability
     const { error: insertError } = await supabase
         .from("availability")
         .insert(availability);
 
     if (insertError) {
         console.error("Error saving availability:", insertError);
-        return;
     }
-}
-
-async function loadNames() {
-
-    const members = await getMembers();
-
-    nameDropdown.innerHTML = "";
-
-    members.forEach(member => {
-        const option = document.createElement("option");
-
-        option.value = member.id;
-        option.textContent = member.name;
-
-        nameDropdown.appendChild(option);
-    });
 }

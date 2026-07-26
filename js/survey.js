@@ -1,15 +1,42 @@
+import { getMembers, updateAvailability } from "./supabase.js";
+
+
+const form = document.getElementById("surveyForm");
+const nameDropdown = document.getElementById("name");
 const container = document.getElementById("availabilityContainer");
 const addButton = document.getElementById("addTime");
-const form = document.getElementById("surveyForm");
 
 
-addButton.addEventListener("click", function() {
+// Load names from Supabase
+async function loadNames() {
 
-    const newTime = document.createElement("div");
+    const members = await getMembers();
 
-    newTime.classList.add("availability");
+    nameDropdown.innerHTML = "";
 
-    newTime.innerHTML = `
+    members.forEach(member => {
+
+        const option = document.createElement("option");
+
+        option.value = member.id;
+        option.textContent = member.name;
+
+        nameDropdown.appendChild(option);
+
+    });
+}
+
+loadNames();
+
+
+// Add another availability block
+addButton.addEventListener("click", () => {
+
+    const block = document.createElement("div");
+
+    block.className = "availability";
+
+    block.innerHTML = `
         <select class="day">
             <option>Monday</option>
             <option>Tuesday</option>
@@ -21,6 +48,7 @@ addButton.addEventListener("click", function() {
         </select>
 
         <input type="time" class="startTime">
+
         <input type="time" class="endTime">
 
         <button type="button" class="removeTime">
@@ -28,38 +56,54 @@ addButton.addEventListener("click", function() {
         </button>
     `;
 
-    container.appendChild(newTime);
+    container.appendChild(block);
+
 });
 
 
-container.addEventListener("click", function(event) {
+// Remove availability block
+container.addEventListener("click", (event) => {
 
     if (event.target.classList.contains("removeTime")) {
+
         event.target.parentElement.remove();
+
     }
 
 });
 
 
-form.addEventListener("submit", function(event) {
+// Submit availability
+form.addEventListener("submit", async (event) => {
+
     event.preventDefault();
 
-    const name = document.getElementById("name").value;
+
+    const memberId = nameDropdown.value;
+
 
     const availability = [];
 
+
     document.querySelectorAll(".availability").forEach(block => {
+
         availability.push({
+
+            member_id: Number(memberId),
+
             day: block.querySelector(".day").value,
-            start: block.querySelector(".startTime").value,
-            end: block.querySelector(".endTime").value
+
+            start_time: block.querySelector(".startTime").value,
+
+            end_time: block.querySelector(".endTime").value
+
         });
+
     });
 
-    const response = {
-        name: name,
-        availability: availability
-    };
+    await updateAvailability(memberId, availability);
 
-    console.log(response);
+
+    alert("Availability saved!");
+
 });

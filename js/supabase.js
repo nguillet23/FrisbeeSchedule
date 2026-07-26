@@ -29,30 +29,46 @@ export async function getMembers() {
 // Replace a person's availability
 export async function updateAvailability(memberId, availability) {
 
+    const { data: existingRows } = await supabase
+    .from("availability")
+    .select("*")
+    .eq("member_id", memberId);
+
     // Delete old availability
-    const { error: deleteError } = await supabase
+    const { error: deleteError, data: deleteData } = await supabase
         .from("availability")
         .delete()
-        .eq("member_id", memberId);
-
+        .eq("member_id", memberId)
+        .select();
 
     if (deleteError) {
         console.error("Error deleting old availability:", deleteError);
         return;
     }
 
-
     // Insert new availability
     const { error: insertError } = await supabase
         .from("availability")
         .insert(availability);
 
-
     if (insertError) {
         console.error("Error saving availability:", insertError);
         return;
     }
+}
 
+async function loadNames() {
 
-    console.log("Availability updated!");
+    const members = await getMembers();
+
+    nameDropdown.innerHTML = "";
+
+    members.forEach(member => {
+        const option = document.createElement("option");
+
+        option.value = member.id;
+        option.textContent = member.name;
+
+        nameDropdown.appendChild(option);
+    });
 }

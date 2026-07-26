@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Availability Survey</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Availability Survey</h1>
+
+    <form id="surveyForm">
+
+        <label for="name">Name:</label>
+        <select id="name">
+            <option value="">Loading...</option>
+        </select>
+
+        <h2>When are you available?</h2>
+
+        <div id="availabilityContainer">
+
+            <div class="availability">
+
+                <select class="day">
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                </select>
+
+                <input type="time" class="startTime">
+
+                <input type="time" class="endTime">
+
+                <button type="button" class="removeTime">
+                    Remove
+                </button>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <button type="button" id="addTime">
+            Add another time
+        </button>
+
+        <button type="submit">
+            Submit
+        </button>
+
+    </form>
+
+</div>
+
+<script type="module" src="js/survey.js"></script>
+
+</body>
+</html>

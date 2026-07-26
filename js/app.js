@@ -1,7 +1,7 @@
 // Category Configuration
 const categories = {
   Practice: "category-1",
-  Throws: "category-2",
+  Meeting: "category-2",
   Tournament: "category-3",
   Scrimmage: "category-4",
   "Frisbee Friday": "category-5"
@@ -19,7 +19,7 @@ const schedule = {
   ],
   Tuesday: [
     {
-      category: "Throws",
+      category: "Meeting",
       start: "5:00 PM",
       end: "5:30 PM",
       location: "Outside Drosdick"
@@ -35,7 +35,7 @@ const schedule = {
   ],
   Thursday: [
     {
-      category: "Throws",
+      category: "Meeting",
       start: "6:00 PM",
       end: "7:00 PM",
       location: "Sheehan Beach"
@@ -43,7 +43,7 @@ const schedule = {
   ],
   Friday: [
     {
-      category: "Throws",
+      category: "Meeting",
       start: "12:00 PM",
       end: "4:00 PM",
       location: "Where Ever"
@@ -57,7 +57,7 @@ const schedule = {
   ],
   Saturday: [
     {
-      category: "Throws",
+      category: "Meeting",
       start: "2:00 PM",
       end: "4:00 PM",
       location: "Where Ever"

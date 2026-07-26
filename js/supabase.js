@@ -6,7 +6,6 @@ export const supabase = createClient(
     SUPABASE_ANON_KEY
 );
 
-
 // Admin login
 export async function loginAdmin(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -27,16 +26,10 @@ export async function loginAdmin(email, password) {
     };
 }
 
-
 // Admin logout
 export async function logoutAdmin() {
     const { error } = await supabase.auth.signOut();
-
-    if (error) {
-        console.error("Logout error:", error);
-    }
 }
-
 
 // Get members
 export async function getMembers() {
@@ -53,10 +46,8 @@ export async function getMembers() {
     return data;
 }
 
-
 // Update availability
 export async function updateAvailability(memberId, availability) {
-
     const { error: deleteError } = await supabase
         .from("availability")
         .delete()
@@ -70,8 +61,4 @@ export async function updateAvailability(memberId, availability) {
     const { error: insertError } = await supabase
         .from("availability")
         .insert(availability);
-
-    if (insertError) {
-        console.error("Error saving availability:", insertError);
-    }
 }

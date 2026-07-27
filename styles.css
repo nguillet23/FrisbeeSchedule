@@ -136,7 +136,7 @@ h1 {
 .time-grid {
   position: relative;
   width: 100%;
-  height: 600px;
+  height: 720px;
 }
 
 .unavailable {
@@ -287,139 +287,6 @@ h1 {
 
 .entry.category-5 .location {
   color: #5a4776;
-}
-
-/* Responsive Design */
-
-@media (max-width:1200px) {
-
-  .calendar-grid,
-  .calendar-header {
-    min-width: 1100px;
-  }
-
-  .entry {
-    padding:6px;
-  }
-
-  .category-badge {
-    font-size:.65rem;
-  }
-
-  .time {
-    font-size:.7rem;
-  }
-
-  .location {
-    font-size:.6rem;
-  }
-
-}
-
-
-@media (max-width:768px) {
-
-  body {
-    padding:20px 10px;
-  }
-
-
-  h1 {
-    font-size:2rem;
-    margin-bottom:25px;
-  }
-
-
-  .calendar {
-    overflow-x:hidden;
-    overflow-y:auto;
-  }
-
-
-  .calendar-grid,
-  .calendar-header {
-    min-width:1100px;
-  }
-
-
-  .time-axis {
-    flex:0 0 60px;
-    width:60px;
-  }
-
-
-  .day-header {
-    padding:12px 8px;
-    font-size:.75rem;
-  }
-
-
-  .entry {
-    left:3px;
-    right:3px;
-    padding:6px;
-  }
-
-
-  .category-badge {
-    font-size:.6rem;
-  }
-
-
-  .time {
-    font-size:.6rem;
-  }
-
-
-  .location {
-    font-size:.55rem;
-  }
-
-}
-
-
-@media (max-width:480px) {
-
-  body {
-    padding:15px 5px;
-  }
-
-
-  h1 {
-    font-size:1.5rem;
-  }
-
-
-  .calendar-grid,
-  .calendar-header {
-    min-width:1000px;
-  }
-
-
-  .day-header {
-    font-size:.65rem;
-  }
-
-
-  .entry {
-    padding:4px;
-  }
-
-
-  .category-badge {
-    font-size:.55rem;
-  }
-
-
-  .time {
-    font-size:.55rem;
-  }
-
-
-  .location {
-    display:none;
-  }
-
 }
 
 /* ============================= */
@@ -605,21 +472,6 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background: #58764d;
-}
-
-
-/* Mobile survey */
-
-@media(max-width:700px) {
-
-  .availability {
-    grid-template-columns: 1fr;
-  }
-
-  .survey-container {
-    padding: 20px;
-  }
-
 }
 
 /* ============================= */
@@ -824,4 +676,152 @@ button:hover {
     text-align: center;
     color: #b8743e;
     font-weight: 600;
+}
+
+/* Responsive Design */
+
+@media (max-width:1200px) {
+
+  .calendar-grid,
+  .calendar-header {
+    min-width: 1100px;
+  }
+
+  .entry {
+    padding:6px;
+  }
+
+  .category-badge {
+    font-size:.65rem;
+  }
+
+  .time {
+    font-size:.7rem;
+  }
+
+  .location {
+    font-size:.6rem;
+  }
+
+}
+
+
+@media (max-width:768px) {
+  body {
+    padding:15px 8px;
+  }
+
+  h1 {
+    font-size:1.8rem;
+    margin-bottom:20px;
+  }
+
+  .calendar {
+    width:100%;
+    overflow-x:auto;
+    border-radius:15px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .calendar-header,
+  .calendar-grid {
+    min-width:1000px;
+  }
+
+  .calendar-header {
+    grid-template-columns:60px repeat(7,1fr);
+  }
+
+  .calendar-grid {
+    grid-template-columns:repeat(7,1fr);
+  }
+
+  .day-header {
+    padding:12px 6px;
+    font-size:.7rem;
+  }
+
+  .time-axis {
+    width:60px;
+    flex:0 0 60px;
+  }
+
+  .time-label {
+    font-size:.65rem;
+  }
+
+  .entry {
+    left:3px;
+    right:3px;
+    padding:5px;
+  }
+
+  .category-badge {
+    font-size:.55rem;
+  }
+
+  .time {
+    font-size:.55rem;
+  }
+
+  .location {
+    font-size:.5rem;
+  }
+}
+
+
+@media (max-width:480px) {
+  body {
+    padding:15px 5px;
+  }
+
+  h1 {
+    font-size:1.5rem;
+  }
+
+
+  .calendar-grid,
+  .calendar-header {
+    min-width:900px;
+  }
+
+
+  .day-header {
+    font-size:.65rem;
+  }
+
+
+  .entry {
+    padding:4px;
+  }
+
+
+  .category-badge {
+    font-size:.55rem;
+  }
+
+
+  .time {
+    font-size:.55rem;
+  }
+
+
+  .location {
+    display:none;
+  }
+
+}
+
+/* Mobile survey */
+
+@media(max-width:700px) {
+
+  .availability {
+    grid-template-columns: 1fr;
+  }
+
+  .survey-container {
+    padding: 20px;
+  }
+
 }

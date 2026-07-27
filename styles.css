@@ -564,13 +564,35 @@ input[type="time"]:focus {
 
 
 #addTime {
-  background: #8b9d7f;
+  width: 100%;
   margin-bottom: 20px;
+
+  background: #d8e8c8;
+  color: #3d5a31;
+
+  border: 2px solid #6b8e5f;
+
+  padding: 14px;
+  border-radius: 14px;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-
 #addTime:hover {
-  background: #738565;
+  background: #6b8e5f;
+  color: white;
+
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(107,142,95,0.25);
+}
+
+#addTime::before {
+  content: "+ ";
+  font-size: 1.2rem;
 }
 
 

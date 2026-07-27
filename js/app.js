@@ -81,7 +81,7 @@ function renderTimeAxis() {
     const timeAxis = document.getElementById("timeAxis");
     timeAxis.innerHTML = "";
 
-    const startHour = 12;
+    const startHour = 10;
     const endHour = 22;
 
     for (let hour = startHour; hour <= endHour; hour++) {
@@ -92,7 +92,8 @@ function renderTimeAxis() {
 
         const displayHour = hour > 12 ? hour - 12 : hour;
 
-        timeLabel.textContent = `${displayHour}:00 PM`;
+        const period = hour >= 12 ? "PM" : "AM";
+        timeLabel.textContent = `${displayHour}:00 ${period}`;
 
         timeAxis.appendChild(timeLabel);
     }
@@ -112,7 +113,7 @@ function renderSchedule(schedule, hangouts) {
         "Sunday"
     ];
 
-    const startHour = 12;
+    const startHour = 10;
     const endHour = 22;
     const hourHeight = 60;
 

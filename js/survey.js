@@ -6,6 +6,12 @@ const nameDropdown = document.getElementById("name");
 const container = document.getElementById("availabilityContainer");
 const addButton = document.getElementById("addTime");
 
+function validTime(time) {
+    const [hour, minute] = time.split(":").map(Number);
+    const minutes = hour * 60 + minute;
+
+    return minutes >= 600 && minutes <= 1320;
+}
 
 // Load names from Supabase
 async function loadNames() {
@@ -47,9 +53,9 @@ addButton.addEventListener("click", () => {
             <option>Sunday</option>
         </select>
 
-        <input type="time" class="startTime">
+        <input type="time" class="startTime" min="10:00" max="22:00">
 
-        <input type="time" class="endTime">
+        <input type="time" class="endTime" min="10:00" max="22:00">
 
         <button type="button" class="removeTime">
             Remove
@@ -100,6 +106,18 @@ form.addEventListener("submit", async (event) => {
         });
 
     });
+
+    for (const slot of availability) {
+    if (!validTime(slot.start_time) || !validTime(slot.end_time)) {
+        alert("Times must be between 10:00 AM and 10:00 PM.");
+        return;
+    }
+
+    if (slot.start_time >= slot.end_time) {
+        alert("End time must be after start time.");
+        return;
+    }
+    }
 
     await updateAvailability(memberId, availability);
 

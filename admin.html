@@ -4,17 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Schedule Admin</title>
-
     <link rel="stylesheet" href="styles.css">
 </head>
-
 
 <body>
 
 <div class="container">
-
 
     <nav class="navbar">
         <a href="index.html">Schedule</a>
@@ -24,85 +20,83 @@
 
     <h1>Schedule Admin</h1>
 
-    <!-- Login Section -->
-    <div id="loginSection">
-    <h2>Admin Login</h2>
-    
-    <input 
-        type="email"
-        id="adminEmail"
-        placeholder="Email"
-    >
-    <input 
-        type="password"
-        id="adminPassword"
-        placeholder="Password"
-    >
-
-    <button id="loginButton">
-        Login
-    </button>
-
-    <p id="loginMessage"></p>
-
+    <div id="loginSection" class="admin-container">
+        <div class="login-card">
+            <h1>Admin Login</h1>
+            <p>Sign in to manage the frisbee schedule</p>
+            <div class="input-group">
+                <input type="email" id="adminEmail" placeholder=" ">
+                <label>Email</label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="adminPassword" placeholder=" ">
+                <label>Password</label>
+            </div>
+            <button id="loginButton" class="login-button">
+                Login
+            </button>
+            <p id="loginMessage" class="login-error"></p>
+        </div>
     </div>
 
-
-
-
-    <!-- Admin Section -->
-
     <div id="adminPanel" style="display:none;">
-        <button id="logoutButton">
-            Logout
-        </button>
-        <h2>Add Schedule Event</h2>
-        <form id="scheduleForm">
-            <label>Day</label>
-
-            <select id="day">
-                <option>Monday</option>
-                <option>Tuesday</option>
-                <option>Wednesday</option>
-                <option>Thursday</option>
-                <option>Friday</option>
-                <option>Saturday</option>
-                <option>Sunday</option>
-            </select>
-
-            <label>Category</label>
-
-            <select id="category">
-                <option>Practice</option>
-                <option>Meetings</option>
-                <option>Tournament</option>
-                <option>Scrimmage</option>
-                <option>Frisbee Friday</option>
-            </select>
-
-            <label>Start Time</label>
-
-            <input 
-                type="time" 
-                id="startTime"
-            >
-            <label>End Time</label>
-            <input 
-                type="time" 
-                id="endTime"
-            >
-            <label>Location</label>
-
-            <input 
-                type="text" 
-                id="location"
-            >
-            <button type="submit">
-                Add Event
+        <div class="survey-container">
+            <button id="logoutButton">
+                Logout
             </button>
-        </form>
-        <h2>Current Events</h2>
-        <div id="eventList">
+            <h2>Add Schedule Event</h2>
+            <form id="scheduleForm">
+                <div class="form-group">
+                    <label>Day</label>
+                    <select id="day">
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+
+                    <select id="category">
+                        <option>Practice</option>
+                        <option>Meeting</option>
+                        <option>Tournament</option>
+                        <option>Scrimmage</option>
+                        <option>Frisbee Friday</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Start Time</label>
+                    <input type="time" id="startTime">
+                </div>
+
+                <div class="form-group">
+                    <label>End Time</label>
+                    <input type="time" id="endTime">
+                </div>
+
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="location">
+                </div>
+
+                <button type="submit">
+                    Add Event
+                </button>
+            </form>
+        </div>
+
+        <div class="survey-container">
+
+            <h2>Current Events</h2>
+
+            <div id="eventList"></div>
         </div>
     </div>
 </div>

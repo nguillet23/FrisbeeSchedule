@@ -81,7 +81,7 @@ function renderTimeAxis() {
     const timeAxis = document.getElementById("timeAxis");
     timeAxis.innerHTML = "";
 
-    const startHour = 12;
+    const startHour = 10;
     const endHour = 22;
 
     for (let hour = startHour; hour <= endHour; hour++) {
@@ -92,7 +92,8 @@ function renderTimeAxis() {
 
         const displayHour = hour > 12 ? hour - 12 : hour;
 
-        timeLabel.textContent = `${displayHour}:00 PM`;
+        const period = hour >= 12 ? "PM" : "AM";
+        timeLabel.textContent = `${displayHour}:00 ${period}`;
 
         timeAxis.appendChild(timeLabel);
     }
@@ -112,7 +113,7 @@ function renderSchedule(schedule, hangouts) {
         "Sunday"
     ];
 
-    const startHour = 12;
+    const startHour = 10;
     const endHour = 22;
     const hourHeight = 60;
 
@@ -204,6 +205,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function getHangouts() {
     const availability = await getAvailability();
+
     const days = [
         "Monday",
         "Tuesday",
@@ -213,62 +215,98 @@ async function getHangouts() {
         "Saturday",
         "Sunday"
     ];
+
     const hangouts = [];
 
     days.forEach(day => {
+
         const dayAvailability = availability.filter(
             slot => slot.day === day
         );
 
-        for (let i = 0; i < dayAvailability.length; i++) {
-            for (let j = i + 1; j < dayAvailability.length; j++) {
-                const a = dayAvailability[i];
-                const b = dayAvailability[j];
+        const timeSlots = {};
 
-                if (a.member_id === b.member_id) {
-                    continue;
+        dayAvailability.forEach(slot => {
+
+            const start = timeToMinutes(convertTime(slot.start_time));
+            const end = timeToMinutes(convertTime(slot.end_time));
+
+            for (let minute = start; minute < end; minute += 30) {
+
+                if (!timeSlots[minute]) {
+                    timeSlots[minute] = [];
                 }
 
-                const start = Math.max(
-                    timeToMinutes(convertTime(a.start_time)),
-                    timeToMinutes(convertTime(b.start_time))
-                );
-
-                const end = Math.min(
-                    timeToMinutes(convertTime(a.end_time)),
-                    timeToMinutes(convertTime(b.end_time))
-                );
-
-                if (start < end) {
-
-                    const members = dayAvailability
-                        .filter(slot => {
-                            const slotStart = timeToMinutes(
-                                convertTime(slot.start_time)
-                            );
-
-                            const slotEnd = timeToMinutes(
-                                convertTime(slot.end_time)
-                            );
-
-                            return slotStart <= start && slotEnd >= end;
-                        })
-                        .map(slot => slot.member_id);
-
-
-                    hangouts.push({
-                        day: day,
-                        start: minutesToTime(start),
-                        end: minutesToTime(end),
-                        people: members.length,
-                        members: [...new Set(members)]
-                    });
-                }
+                timeSlots[minute].push(slot.member_id);
             }
+
+        });
+
+
+        let current = null;
+
+        Object.keys(timeSlots)
+            .map(Number)
+            .sort((a,b)=>a-b)
+            .forEach(time => {
+
+                const members = [
+                    ...new Set(timeSlots[time])
+                ];
+
+
+                if (members.length >= 2) {
+
+                    if (
+                        current &&
+                        current.people === members.length &&
+                        current.end === time
+                    ) {
+
+                        current.end = time + 30;
+
+                    } else {
+
+                        if (current) {
+                            hangouts.push(current);
+                        }
+
+
+                        current = {
+                            day,
+                            start: time,
+                            end: time + 30,
+                            people: members.length,
+                            members
+                        };
+
+                    }
+
+                } else {
+
+                    if (current) {
+                        hangouts.push(current);
+                        current = null;
+                    }
+
+                }
+
+            });
+
+
+        if (current) {
+            hangouts.push(current);
         }
+
+
     });
 
-    return hangouts;
+
+    return hangouts.map(slot => ({
+        ...slot,
+        start: minutesToTime(slot.start),
+        end: minutesToTime(slot.end)
+    }));
 }
 
 function minutesToTime(minutes) {

@@ -62,3 +62,19 @@ export async function updateAvailability(memberId, availability) {
         .from("availability")
         .insert(availability);
 }
+
+export async function getAvailability() {
+    console.log("Using availability function");
+    const { data, error } = await supabase
+        .from("availability")
+        .select("*");
+
+    console.log("Availability data:", data);
+    console.log("Availability error:", error);
+
+    if (error) {
+        return [];
+    }
+
+    return data;
+}

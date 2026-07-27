@@ -592,3 +592,21 @@ button:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 12px rgba(0,0,0,0.15);
 }
+
+.entry.available {
+    background: #d6f5d6;
+    border-left-color: #2e8b57;
+    color: #215a37;
+}
+
+.entry.available .category-badge {
+    color: #215a37;
+}
+
+.entry.available .time {
+    color: #2e8b57;
+}
+
+.entry.available .location {
+    color: #387c4f;
+}

@@ -1,4 +1,4 @@
-import { supabase } from "./supabase.js";
+import { getAvailability, supabase } from "./supabase.js";
 
 const categories = {
     Practice: "category-1",
@@ -43,7 +43,16 @@ async function getSchedule() {
         .order("id");
 
     if (error) {
-        return {};
+    console.error(error);
+    return {
+        Monday: [],
+        Tuesday: [],
+        Wednesday: [],
+        Thursday: [],
+        Friday: [],
+        Saturday: [],
+        Sunday: []
+    };
     }
 
     const schedule = {
@@ -89,7 +98,7 @@ function renderTimeAxis() {
     }
 }
 
-function renderSchedule(schedule) {
+function renderSchedule(schedule, hangouts) {
     const scheduleElement = document.getElementById("schedule");
     scheduleElement.innerHTML = "";
 
@@ -108,44 +117,65 @@ function renderSchedule(schedule) {
     const hourHeight = 60;
 
     days.forEach(day => {
-        const entries = schedule[day];
+        const entries = schedule[day] || [];
 
         const dayColumn = document.createElement("div");
         dayColumn.className = "day-column";
 
-        if (!entries || entries.length === 0) {
-            const unavailable = document.createElement("div");
+        const grid = document.createElement("div");
+        grid.className = "time-grid";
+        grid.style.height = `${(endHour - startHour) * hourHeight}px`;
 
-            unavailable.className = "unavailable";
-            unavailable.textContent = "Unavailable";
+        // Official schedule events
+        entries.forEach(entry => {
+            const startMinutes = timeToMinutes(entry.start);
+            const endMinutes = timeToMinutes(entry.end);
 
-            dayColumn.appendChild(unavailable);
-        } else {
-            const grid = document.createElement("div");
+            const event = document.createElement("div");
 
-            grid.className = "time-grid";
-            grid.style.height = `${(endHour - startHour) * hourHeight}px`;
+            event.className = `entry ${categories[entry.category] || ""}`;
 
-            entries.forEach(entry => {
-                const startMinutes = timeToMinutes(entry.start);
-                const endMinutes = timeToMinutes(entry.end);
+            event.style.top = `${((startMinutes - startHour * 60) / 60) * hourHeight}px`;
+            event.style.height = `${Math.max(((endMinutes - startMinutes) / 60) * hourHeight, 30)}px`;
+
+            event.innerHTML = `
+                <span class="category-badge">${entry.category}</span>
+                <span class="time">${entry.start} - ${entry.end}</span>
+                <span class="location">${entry.location}</span>
+            `;
+
+            grid.appendChild(event);
+        });
+
+        // Hangout suggestions
+        hangouts
+            .filter(slot => slot.day === day)
+            .forEach(slot => {
+                const startMinutes = timeToMinutes(slot.start);
+                const endMinutes = timeToMinutes(slot.end);
 
                 const event = document.createElement("div");
 
-                event.className = `entry ${categories[entry.category] || ""}`;
+                event.className = "entry available";
 
                 event.style.top = `${((startMinutes - startHour * 60) / 60) * hourHeight}px`;
                 event.style.height = `${Math.max(((endMinutes - startMinutes) / 60) * hourHeight, 30)}px`;
 
                 event.innerHTML = `
-                    <span class="category-badge">${entry.category}</span>
-                    <span class="time">${entry.start} - ${entry.end}</span>
-                    <span class="location">${entry.location}</span>
+                    <span class="category-badge">Hangout</span>
+                    <span class="time">${slot.start} - ${slot.end}</span>
+                    <span class="location">${slot.people} available</span>
                 `;
 
                 grid.appendChild(event);
             });
 
+        if (grid.children.length === 0) {
+            const unavailable = document.createElement("div");
+            unavailable.className = "unavailable";
+            unavailable.textContent = "Unavailable";
+            dayColumn.appendChild(unavailable);
+        } else {
             dayColumn.appendChild(grid);
         }
 
@@ -157,6 +187,80 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderTimeAxis();
 
     const schedule = await getSchedule();
+    const hangouts = await getHangouts();
 
-    renderSchedule(schedule);
+    renderSchedule(schedule, hangouts);
 });
+
+async function getHangouts() {
+    const availability = await getAvailability();
+
+    console.log("Availability:", availability);
+
+    const days = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+    ];
+
+    const hangouts = [];
+
+    days.forEach(day => {
+        const dayAvailability = availability.filter(
+            slot => slot.day === day
+        );
+
+        for (let i = 0; i < dayAvailability.length; i++) {
+            for (let j = i + 1; j < dayAvailability.length; j++) {
+                const a = dayAvailability[i];
+                const b = dayAvailability[j];
+
+                if (a.member_id === b.member_id) {
+                    continue;
+                }
+
+                const start = Math.max(
+                    timeToMinutes(convertTime(a.start_time)),
+                    timeToMinutes(convertTime(b.start_time))
+                );
+
+                const end = Math.min(
+                    timeToMinutes(convertTime(a.end_time)),
+                    timeToMinutes(convertTime(b.end_time))
+                );
+
+                if (start < end) {
+                    hangouts.push({
+                        day: day,
+                        start: minutesToTime(start),
+                        end: minutesToTime(end),
+                        people: 2
+                    });
+                }
+            }
+        }
+    });
+
+    return hangouts;
+}
+
+function minutesToTime(minutes) {
+    let hours = Math.floor(minutes / 60);
+    let mins = minutes % 60;
+
+    const period = hours >= 12 ? "PM" : "AM";
+
+    if (hours > 12) {
+        hours -= 12;
+    }
+
+    if (hours === 0) {
+        hours = 12;
+    }
+
+    return `${hours}:${mins.toString().padStart(2, "0")} ${period}`;
+}

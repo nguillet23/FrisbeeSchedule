@@ -395,3 +395,278 @@ h1 {
     font-size: 0.5rem;
   }
 }
+
+/* ============================= */
+/* App Navigation */
+/* ============================= */
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  margin-bottom: 30px;
+}
+
+.navbar a {
+  color: #3a4a2a;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding-bottom: 6px;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.navbar a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background: #6b8e5f;
+
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.navbar a:hover {
+  color: #6b8e5f;
+}
+
+.navbar a:hover::after,
+.navbar .active::after {
+  transform: scaleX(1);
+}
+
+.navbar .active {
+  color: #6b8e5f;
+}
+
+
+/* ============================= */
+/* Survey Styling */
+/* ============================= */
+
+.survey-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #dcdcc8;
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+
+.survey-container h1 {
+  margin-bottom: 25px;
+}
+
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #3a4a2a;
+}
+
+
+select,
+input[type="time"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid #b5c4a5;
+  background: #f3f2df;
+  color: #3a4a2a;
+  font-size: 1rem;
+  outline: none;
+}
+
+
+select:focus,
+input[type="time"]:focus {
+  border-color: #6b8e5f;
+  box-shadow: 0 0 0 3px rgba(107,142,95,0.25);
+}
+
+
+/* Availability blocks */
+
+.availability {
+  background: #c5d4b3;
+  padding: 15px;
+  border-radius: 14px;
+  margin-bottom: 15px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 10px;
+
+  align-items: center;
+}
+
+
+.removeTime {
+  background: #b8743e;
+  padding: 10px 14px;
+}
+
+
+.removeTime:hover {
+  background: #985c2e;
+}
+
+
+#addTime {
+  background: #8b9d7f;
+  margin-bottom: 20px;
+}
+
+
+#addTime:hover {
+  background: #738565;
+}
+
+
+input[type="submit"] {
+  width: 100%;
+  background: #6b8e5f;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+input[type="submit"]:hover {
+  background: #58764d;
+}
+
+
+/* Mobile survey */
+
+@media(max-width:700px) {
+
+  .availability {
+    grid-template-columns: 1fr;
+  }
+
+  .survey-container {
+    padding: 20px;
+  }
+
+}
+
+/* ============================= */
+/* Buttons */
+/* ============================= */
+
+button {
+  background: #6b8e5f;
+  color: white;
+  border: none;
+
+  padding: 12px 22px;
+  border-radius: 12px;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: #58764d;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+}
+
+.entry.available {
+    background: #d6f5d6;
+    border-left-color: #2e8b57;
+    color: #215a37;
+}
+
+.entry.available .category-badge {
+    color: #215a37;
+}
+
+.entry.available .time {
+    color: #2e8b57;
+}
+
+.entry.available .location {
+    color: #387c4f;
+}
+
+.entry.available {
+  background: #c8e6c9;
+  border-left-color: #4caf50;
+  color: #2e5d32;
+}
+
+.entry.available .category-badge {
+  color: #2e5d32;
+}
+
+.entry.available .time {
+  color: #3d7041;
+}
+
+.entry.available .location {
+  color: #47794c;
+}
+
+
+.availability-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: #dcdcc8;
+  padding: 25px;
+  border-radius: 12px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+
+  z-index: 1000;
+
+  display: none;
+
+  min-width: 300px;
+}
+
+
+.availability-popup h2 {
+  margin-bottom: 15px;
+}
+
+
+.availability-popup ul {
+  list-style: none;
+}
+
+
+.availability-popup li {
+  padding: 8px 0;
+  border-bottom: 1px solid #b5c4a5;
+}
+
+
+.availability-popup button {
+  margin-top: 20px;
+  width: 100%;
+}

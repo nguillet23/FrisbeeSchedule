@@ -1,31 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Weekly Schedule</title>
+
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <div class="container">
-        <h1>Weekly Schedule</h1>
-        <div class="calendar">
-            <div class="calendar-header">
-                <div class="time-column"></div>
-                <div class="day-header">Monday</div>
-                <div class="day-header">Tuesday</div>
-                <div class="day-header">Wednesday</div>
-                <div class="day-header">Thursday</div>
-                <div class="day-header">Friday</div>
-                <div class="day-header">Saturday</div>
-                <div class="day-header">Sunday</div>
-            </div>
-            <div class="calendar-body">
-                <div class="time-axis" id="timeAxis"></div>
-                <div class="calendar-grid" id="schedule"></div>
-            </div>
+
+<div class="container">
+
+    <nav class="navbar">
+        <a href="index.html" class="active">Schedule</a>
+        <a href="survey.html">Availability Survey</a>
+        <a href="admin.html">Admin</a>
+    </nav>
+
+
+    <h1>Weekly Schedule</h1>
+
+
+    <div class="calendar">
+
+        <div class="calendar-header">
+            <div class="time-column"></div>
+
+            <div class="day-header">Monday</div>
+            <div class="day-header">Tuesday</div>
+            <div class="day-header">Wednesday</div>
+            <div class="day-header">Thursday</div>
+            <div class="day-header">Friday</div>
+            <div class="day-header">Saturday</div>
+            <div class="day-header">Sunday</div>
         </div>
+
+
+        <div class="calendar-body">
+
+            <div class="time-axis" id="timeAxis"></div>
+
+            <div class="calendar-grid" id="schedule"></div>
+
+        </div>
+
     </div>
-    <script src="script.js"></script>
+
+</div>
+
+<!-- Availability Popup -->
+<div id="availabilityPopup" class="availability-popup">
+
+    <h2>People Available</h2>
+
+    <ul id="availabilityNames"></ul>
+
+    <button id="closePopup">
+        Close
+    </button>
+
+</div>
+
+<script type="module" src="js/app.js"></script>
+
 </body>
-</html>>
+
+</html>

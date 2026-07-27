@@ -1,9 +1,10 @@
-import { supabase, loginAdmin } from "./supabase.js";
+import { supabase, loginAdmin, logoutAdmin } from "./supabase.js";
 
 
 const loginButton = document.getElementById("loginButton");
 const emailInput = document.getElementById("adminEmail");
 const passwordInput = document.getElementById("adminPassword");
+const logoutButton = document.getElementById("logoutButton");
 
 const loginSection = document.getElementById("loginSection");
 const adminPanel = document.getElementById("adminPanel");
@@ -166,4 +167,14 @@ eventList.addEventListener("click", async (event) => {
 
     }
 
+});
+
+logoutButton.addEventListener("click", async () => {
+    await logoutAdmin();
+
+    adminPanel.style.display = "none";
+    loginSection.style.display = "block";
+
+    emailInput.value = "";
+    passwordInput.value = "";
 });

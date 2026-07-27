@@ -64,10 +64,18 @@ export async function updateAvailability(memberId, availability) {
 }
 
 export async function getAvailability() {
-    console.log("Using availability function");
     const { data, error } = await supabase
         .from("availability")
-        .select("*");
+        .select(`
+            id,
+            member_id,
+            day,
+            start_time,
+            end_time,
+            members (
+                name
+            )
+        `);
 
     console.log("Availability data:", data);
     console.log("Availability error:", error);

@@ -147,7 +147,7 @@ function renderSchedule(schedule, hangouts) {
             grid.appendChild(event);
         });
 
-        // Hangout suggestions
+        // Availability / Throws suggestions
         hangouts
             .filter(slot => slot.day === day)
             .forEach(slot => {
@@ -162,10 +162,14 @@ function renderSchedule(schedule, hangouts) {
                 event.style.height = `${Math.max(((endMinutes - startMinutes) / 60) * hourHeight, 30)}px`;
 
                 event.innerHTML = `
-                    <span class="category-badge">Hangout</span>
+                    <span class="category-badge">Throws</span>
                     <span class="time">${slot.start} - ${slot.end}</span>
                     <span class="location">${slot.people} available</span>
                 `;
+
+                event.addEventListener("click", () => {
+                    showAvailability(slot);
+                });
 
                 grid.appendChild(event);
             });
@@ -186,6 +190,12 @@ function renderSchedule(schedule, hangouts) {
 document.addEventListener("DOMContentLoaded", async () => {
     renderTimeAxis();
 
+    document
+        .getElementById("closePopup")
+        .addEventListener("click", () => {
+            document.getElementById("availabilityPopup").style.display = "none";
+        });
+
     const schedule = await getSchedule();
     const hangouts = await getHangouts();
 
@@ -194,9 +204,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function getHangouts() {
     const availability = await getAvailability();
-
-    console.log("Availability:", availability);
-
     const days = [
         "Monday",
         "Tuesday",
@@ -206,7 +213,6 @@ async function getHangouts() {
         "Saturday",
         "Sunday"
     ];
-
     const hangouts = [];
 
     days.forEach(day => {
@@ -234,11 +240,28 @@ async function getHangouts() {
                 );
 
                 if (start < end) {
+
+                    const members = dayAvailability
+                        .filter(slot => {
+                            const slotStart = timeToMinutes(
+                                convertTime(slot.start_time)
+                            );
+
+                            const slotEnd = timeToMinutes(
+                                convertTime(slot.end_time)
+                            );
+
+                            return slotStart <= start && slotEnd >= end;
+                        })
+                        .map(slot => slot.member_id);
+
+
                     hangouts.push({
                         day: day,
                         start: minutesToTime(start),
                         end: minutesToTime(end),
-                        people: 2
+                        people: members.length,
+                        members: [...new Set(members)]
                     });
                 }
             }
@@ -263,4 +286,30 @@ function minutesToTime(minutes) {
     }
 
     return `${hours}:${mins.toString().padStart(2, "0")} ${period}`;
+}
+
+async function showAvailability(slot) {
+
+    const popup = document.getElementById("availabilityPopup");
+    const namesList = document.getElementById("availabilityNames");
+
+    const { data, error } = await supabase
+        .from("members")
+        .select("name")
+        .in("id", slot.members);
+
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    namesList.innerHTML = "";
+
+    data.forEach(member => {
+        const li = document.createElement("li");
+        li.textContent = member.name;
+        namesList.appendChild(li);
+    });
+
+    popup.style.display = "block";
 }

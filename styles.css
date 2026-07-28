@@ -45,16 +45,26 @@ h1 {
 .calendar {
   background: rgba(255,255,255,0.35);
   backdrop-filter: blur(12px);
-
   border-radius: 20px;
-
   box-shadow:
     0 20px 50px rgba(0,0,0,0.18);
-
-  overflow: hidden;
-  overflow-x:auto;
-
+  overflow-x: auto;
+  overflow-y:hidden;
   border: 1px solid rgba(255,255,255,0.4);
+  scrollbar-width: thin;
+}
+
+.calendar::-webkit-scrollbar {
+  height: 10px;
+}
+
+.calendar::-webkit-scrollbar-thumb {
+  background: #6b8e5f;
+  border-radius: 10px;
+}
+
+.calendar::-webkit-scrollbar-track {
+  background: #dcdcc8;
 }
 
 .calendar-header {
@@ -88,7 +98,7 @@ h1 {
 .calendar-body {
   display: flex;
   gap: 0;
-  min-height: 600px;
+  min-height: 900px;
 }
 
 .time-axis {
@@ -719,13 +729,15 @@ button:hover {
   .calendar {
     width:100%;
     overflow-x:auto;
+    overflow-y: hidden;
     border-radius:15px;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
   }
 
   .calendar-header,
   .calendar-grid {
-    min-width:1000px;
+    min-width:1100px;
   }
 
   .calendar-header {
@@ -737,8 +749,8 @@ button:hover {
   }
 
   .day-header {
-    padding:12px 6px;
-    font-size:.7rem;
+    padding:14px 8px;
+    font-size:.8rem;
   }
 
   .time-axis {
@@ -751,21 +763,22 @@ button:hover {
   }
 
   .entry {
-    left:3px;
-    right:3px;
-    padding:5px;
+    left:4px;
+    right:4px;
+    padding:7px;
+    min-height:40px;
   }
 
   .category-badge {
-    font-size:.55rem;
+    font-size:.65rem;
   }
 
   .time {
-    font-size:.55rem;
+    font-size:.65rem;
   }
 
   .location {
-    font-size:.5rem;
+    font-size:.6rem;
   }
 }
 
@@ -779,35 +792,24 @@ button:hover {
     font-size:1.5rem;
   }
 
-
-  .calendar-grid,
-  .calendar-header {
-    min-width:900px;
-  }
-
-
   .day-header {
     font-size:.65rem;
   }
-
 
   .entry {
     padding:4px;
   }
 
-
   .category-badge {
     font-size:.55rem;
   }
-
 
   .time {
     font-size:.55rem;
   }
 
-
   .location {
-    display:none;
+    font-size:.55rem;
   }
 
 }

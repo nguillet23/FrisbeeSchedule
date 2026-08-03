@@ -155,7 +155,7 @@ h1 {
 
 .password-form .input-group input {
   width: 100%;
-  padding: 15px 14px;
+  padding: 15px 50px 15px 14px;
   border-radius: 14px;
   border: 2px solid #b5c4a5;
   background: #f8f8eb;
@@ -186,6 +186,26 @@ h1 {
   top: -10px;
   font-size: 0.75rem;
   color: #6b8e5f;
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #718064;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 4px 8px;
+  transition: color 0.2s ease;
+}
+
+.toggle-password-btn:hover {
+  color: #6b8e5f;
+  transform: translateY(-50%);
 }
 
 
@@ -354,12 +374,11 @@ button:hover {
   }
 
   .calendar {
-    width:100%;
-    overflow-x:auto;
-    overflow-y: hidden;
-    border-radius:15px;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    border-radius: 15px;
+    touch-action: pan-y;
   }
 
   .calendar-header,

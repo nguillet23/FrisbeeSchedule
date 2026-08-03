@@ -354,12 +354,11 @@ button:hover {
   }
 
   .calendar {
-    width:100%;
-    overflow-x:auto;
-    overflow-y: hidden;
-    border-radius:15px;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    border-radius: 15px;
+    touch-action: pan-y;
   }
 
   .calendar-header,

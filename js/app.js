@@ -198,6 +198,33 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("availabilityPopup").style.display = "none";
         });
 
+    // Pass vertical scroll/drag events through to the page
+    const calendar = document.querySelector(".calendar");
+    
+    calendar.addEventListener("wheel", (e) => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+            // Vertical scroll - pass to window
+            window.scrollBy(0, e.deltaY);
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    let lastY = 0;
+    calendar.addEventListener("touchstart", (e) => {
+        lastY = e.touches[0].clientY;
+    }, { passive: true });
+
+    calendar.addEventListener("touchmove", (e) => {
+        const currentY = e.touches[0].clientY;
+        const diff = lastY - currentY;
+        
+        // If dragging vertically, scroll the page
+        if (Math.abs(diff) > 0) {
+            window.scrollBy(0, diff);
+        }
+        lastY = currentY;
+    }, { passive: false });
+
     const schedule = await getSchedule();
     const hangouts = await getHangouts();
 

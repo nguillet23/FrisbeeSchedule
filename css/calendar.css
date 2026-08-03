@@ -9,10 +9,11 @@
   box-shadow:
     0 20px 50px rgba(0,0,0,0.18);
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   border: 1px solid rgba(255,255,255,0.4);
   scrollbar-width: thin;
-  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+  touch-action: pan-y;
 }
 
 .calendar::-webkit-scrollbar {
@@ -123,7 +124,7 @@
   display: flex;
   flex-direction: column;
   box-shadow: inset 1px 0 0 #b5c4a5;
-  min-height: 780px;
+  min-height: 0;
   min-width: 0;
   overflow: hidden;
 }
@@ -135,7 +136,8 @@
 .time-grid {
   position: relative;
   width: 100%;
-  min-height: 780px;
+  min-height: 0;
+  height: 780px;
   z-index: 1;
 }
 

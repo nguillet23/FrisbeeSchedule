@@ -1,4 +1,71 @@
  /* ============================= */
+/* Survey Layout */
+/* ============================= */
+
+.survey-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 880px) {
+  .survey-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.survey-form {
+  min-width: 0;
+}
+
+.schedule-preview-panel {
+  background: #f7f5ec;
+  border: 2px solid #b0c58f;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 10px 24px rgba(61, 90, 49, 0.12);
+}
+
+.preview-member-name {
+  font-weight: 700;
+  color: #3d5a31;
+  margin-bottom: 12px;
+}
+
+.member-schedule-preview {
+  display: grid;
+  gap: 12px;
+}
+
+.preview-day-card {
+  background: #e8f0dc;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.preview-day-card h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: #3d5a31;
+}
+
+.preview-day-card ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.preview-day-card li {
+  margin-bottom: 4px;
+}
+
+.preview-empty {
+  margin: 0;
+  color: #6b6b6b;
+  font-style: italic;
+}
+
+/* ============================= */
 /* Availability Form */
 /* ============================= */
 
@@ -9,10 +76,20 @@
   margin-bottom: 15px;
 
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 
   align-items: center;
+}
+
+@media (max-width: 680px) {
+  .availability {
+    grid-template-columns: 1fr;
+  }
+
+  .removeTime {
+    width: 100%;
+  }
 }
 
 

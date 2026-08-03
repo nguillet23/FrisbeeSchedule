@@ -83,12 +83,13 @@ function renderTimeAxis() {
 
     const startHour = 10;
     const endHour = 22;
+    const hourHeight = 60;
 
     for (let hour = startHour; hour <= endHour; hour++) {
         const timeLabel = document.createElement("div");
 
         timeLabel.className = "time-label";
-        timeLabel.style.height = "60px";
+        timeLabel.style.height = `${hourHeight}px`;
 
         const displayHour = hour > 12 ? hour - 12 : hour;
 
@@ -116,6 +117,7 @@ function renderSchedule(schedule, hangouts) {
     const startHour = 10;
     const endHour = 22;
     const hourHeight = 60;
+    const totalHours = endHour - startHour + 1;
 
     days.forEach(day => {
         const entries = schedule[day] || [];
@@ -125,7 +127,6 @@ function renderSchedule(schedule, hangouts) {
 
         const grid = document.createElement("div");
         grid.className = "time-grid";
-        grid.style.height = `${(endHour - startHour) * hourHeight}px`;
 
         // Official schedule events
         entries.forEach(entry => {

@@ -1,0 +1,67 @@
+ /* ============================= */
+/* Availability Form */
+/* ============================= */
+
+.availability {
+  background: #c5d4b3;
+  padding: 15px;
+  border-radius: 14px;
+  margin-bottom: 15px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 10px;
+
+  align-items: center;
+}
+
+
+/* ============================= */
+/* Remove Button */
+/* ============================= */
+
+.removeTime {
+  background: #b8743e;
+  padding: 10px 14px;
+}
+
+.removeTime:hover {
+  background: #985c2e;
+}
+
+
+/* ============================= */
+/* Add Time Button */
+/* ============================= */
+
+#addTime {
+  width: 100%;
+  margin-bottom: 20px;
+
+  background: #d8e8c8;
+  color: #3d5a31;
+
+  border: 2px solid #6b8e5f;
+
+  padding: 14px;
+  border-radius: 14px;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#addTime:hover {
+  background: #6b8e5f;
+  color: white;
+
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(107,142,95,0.25);
+}
+
+#addTime::before {
+  content: "+ ";
+  font-size: 1.2rem;
+}

@@ -108,6 +108,86 @@ h1 {
   color: white;
 }
 
+.password-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.password-layout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-card {
+  width: min(100%, 440px);
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: clamp(24px, 5vw, 40px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.password-card h1 {
+  margin-bottom: 12px;
+}
+
+.password-subtitle {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #5a6a4a;
+}
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.password-form .input-group {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.password-form .input-group input {
+  width: 100%;
+  padding: 15px 14px;
+  border-radius: 14px;
+  border: 2px solid #b5c4a5;
+  background: #f8f8eb;
+  font-size: 1rem;
+  color: #24321d;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.password-form .input-group input:focus {
+  border-color: #6b8e5f;
+  box-shadow: 0 0 0 4px rgba(107, 142, 95, 0.2);
+}
+
+.password-form .input-group label {
+  position: absolute;
+  left: 14px;
+  top: 15px;
+  color: #718064;
+  pointer-events: none;
+  background: #f8f8eb;
+  padding: 0 5px;
+  transition: 0.2s;
+}
+
+.password-form .input-group input:focus + label,
+.password-form .input-group input:not(:placeholder-shown) + label {
+  top: -10px;
+  font-size: 0.75rem;
+  color: #6b8e5f;
+}
+
 
 /* ============================= */
 /* Survey Styling */

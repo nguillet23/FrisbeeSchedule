@@ -86,3 +86,19 @@ export async function getAvailability() {
 
     return data;
 }
+
+// Website access password lookup
+export async function getSitePassword() {
+    const { data, error } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key", "website_password")
+        .maybeSingle();
+
+    if (error) {
+        console.error("Error loading site password:", error);
+        return null;
+    }
+
+    return data?.value ?? null;
+}

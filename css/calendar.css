@@ -8,12 +8,8 @@
   border-radius: 20px;
   box-shadow:
     0 20px 50px rgba(0,0,0,0.18);
-  overflow-x: auto;
-  overflow-y: visible;
   border: 1px solid rgba(255,255,255,0.4);
   scrollbar-width: thin;
-  overscroll-behavior: none;
-  touch-action: pan-y;
 }
 
 .calendar::-webkit-scrollbar {
@@ -46,6 +42,8 @@
   min-width: 1060px;
   width: 100%;
   height: auto;
+  overflow-x: auto;
+  overflow-y: visible;
 }
 
 .calendar-grid {
@@ -373,4 +371,136 @@
 .availability-popup button {
   margin-top: 20px;
   width: 100%;
+}
+
+/* ============================= */
+/* Mobile Accordion */
+/* ============================= */
+
+.day-column-wrapper {
+  display: contents;
+}
+
+.accordion-header {
+  display: none;
+  cursor: pointer;
+}
+
+.accordion-toggle {
+  display: none;
+}
+
+.accordion-content {
+  display: block;
+}
+
+/* Desktop: Show main time-axis, hide accordion time-axes */
+@media (min-width: 769px) {
+  
+  .accordion-content {
+    display: contents;
+  }
+
+  .accordion-content .time-axis {
+    display: none;
+  }
+
+}
+
+/* Mobile only: Show accordion */
+@media (max-width: 768px) {
+  
+  .calendar {
+    overflow-x: visible;
+  }
+
+  .calendar-header {
+    display: none;
+  }
+
+  .calendar-body {
+    display: block;
+    min-width: auto;
+    overflow-x: visible;
+  }
+
+  .calendar-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: auto;
+    width: 100%;
+  }
+
+  .day-column-wrapper {
+    display: block;
+    border-bottom: 1px solid #a8b89a;
+  }
+
+  .day-column-wrapper:last-child {
+    border-bottom: none;
+  }
+
+  .accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 14px;
+    background: #dcdcc8;
+    border-bottom: 1px solid #b5c4a5;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .accordion-title {
+    font-weight: 700;
+    color: #24321d;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+  }
+
+  .accordion-toggle {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #6b8e5f;
+    transition: transform 0.2s ease;
+  }
+
+  .accordion-content {
+    display: none;
+    background: #dcdcc8;
+    display: flex;
+    gap: 0;
+  }
+
+  .day-column-wrapper.active .accordion-content {
+    display: flex;
+  }
+
+  .accordion-content .time-axis {
+    border-right: 2px solid #a8b89a;
+    background: #cad9bb;
+    flex: 0 0 80px;
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .accordion-content .day-column {
+    flex: 1;
+    box-shadow: none;
+  }
+
+  .accordion-content-day {
+    position: relative;
+    background: #dcdcc8;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+  }
+
 }

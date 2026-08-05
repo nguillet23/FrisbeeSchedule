@@ -391,11 +391,11 @@
 }
 
 .accordion-content {
-  display: block;
+  display: none;
 }
 
 /* Desktop: Show main time-axis, hide accordion time-axes */
-@media (min-width: 769px) {
+@media (min-width: 1060px) {
   
   .accordion-content {
     display: contents;
@@ -407,8 +407,8 @@
 
 }
 
-/* Mobile only: Show accordion */
-@media (max-width: 768px) {
+/* Accordion: Show whenever horizontal scrolling is needed (screens narrower than 1060px) */
+@media (max-width: 1059px) {
   
   .calendar {
     overflow-x: visible;
@@ -422,6 +422,10 @@
     display: block;
     min-width: auto;
     overflow-x: visible;
+  }
+
+  .calendar-body .time-axis {
+    display: none;
   }
 
   .calendar-grid {
@@ -471,12 +475,16 @@
   .accordion-content {
     display: none;
     background: #dcdcc8;
-    display: flex;
     gap: 0;
+    flex-direction: row;
   }
 
   .day-column-wrapper.active .accordion-content {
     display: flex;
+  }
+
+  .day-column-wrapper.active .accordion-toggle {
+    transform: rotate(45deg);
   }
 
   .accordion-content .time-axis {
@@ -484,8 +492,12 @@
     background: #cad9bb;
     flex: 0 0 80px;
     width: 80px;
-    display: flex;
+    display: none;
     flex-direction: column;
+  }
+
+  .day-column-wrapper.active .accordion-content .time-axis {
+    display: flex;
   }
 
   .accordion-content .day-column {

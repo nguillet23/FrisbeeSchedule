@@ -174,11 +174,20 @@
   box-shadow:
     0 3px 8px rgba(0,0,0,.12);
   z-index: 2;
+  border: 5px solid;
+  font-family: inherit;
+  text-align: left;
+  background-color: transparent;
+  padding: 8px;
 }
 
 .entry:hover {
   transform: scale(1.04);
   z-index: 20;
+}
+
+.entry:active {
+  transform: scale(0.98);
 }
 
 .category-badge {
@@ -375,6 +384,66 @@
   margin-top: 20px;
   width: 100%;
 }
+
+
+/* ============================= */
+/* Event Details Popup */
+/* ============================= */
+
+.event-details-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: #dcdcc8;
+  padding: 25px;
+  border-radius: 12px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+
+  z-index: 1000;
+
+  display: none;
+
+  width: min(92vw, 380px);
+  min-width: auto;
+}
+
+.event-details-popup h2 {
+  margin-bottom: 20px;
+  color: #24321d;
+}
+
+.event-detail-item {
+  margin-bottom: 18px;
+}
+
+.event-detail-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6b8e5f;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.event-detail-value {
+  font-size: 1rem;
+  color: #24321d;
+  line-height: 1.5;
+}
+
+.event-details-popup button {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.event-details-popup button:hover {
+  opacity: 0.9;
+}
+
 
 /* ============================= */
 /* Mobile Accordion */

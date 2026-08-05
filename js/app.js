@@ -83,7 +83,8 @@ async function getSchedule() {
             category: event.category,
             start: convertTime(event.start_time),
             end: convertTime(event.end_time),
-            location: event.location
+            location: event.location,
+            what_to_bring: event.what_to_bring || "N/A"
         });
     });
 
@@ -171,9 +172,10 @@ function renderSchedule(schedule, hangouts) {
             const startMinutes = timeToMinutes(entry.start);
             const endMinutes = timeToMinutes(entry.end);
 
-            const event = document.createElement("div");
+            const event = document.createElement("button");
 
             event.className = `entry ${categories[entry.category] || ""}`;
+            event.type = "button";
 
             event.style.top = `${((startMinutes - startHour * 60) / 60) * hourHeight}px`;
             event.style.height = `${Math.max(((endMinutes - startMinutes) / 60) * hourHeight, 30)}px`;
@@ -183,6 +185,10 @@ function renderSchedule(schedule, hangouts) {
                 <span class="time">${entry.start} - ${entry.end}</span>
                 <span class="location">${entry.location}</span>
             `;
+
+            event.addEventListener("click", () => {
+                showEventDetails(entry);
+            });
 
             grid.appendChild(event);
         });
@@ -194,9 +200,10 @@ function renderSchedule(schedule, hangouts) {
                 const startMinutes = timeToMinutes(slot.start);
                 const endMinutes = timeToMinutes(slot.end);
 
-                const event = document.createElement("div");
+                const event = document.createElement("button");
 
                 event.className = "entry available";
+                event.type = "button";
 
                 event.style.top = `${((startMinutes - startHour * 60) / 60) * hourHeight}px`;
                 event.style.height = `${Math.max(((endMinutes - startMinutes) / 60) * hourHeight, 30)}px`;
@@ -249,6 +256,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         .getElementById("closePopup")
         .addEventListener("click", () => {
             document.getElementById("availabilityPopup").style.display = "none";
+        });
+
+    document
+        .getElementById("closeEventPopup")
+        .addEventListener("click", () => {
+            document.getElementById("eventDetailsPopup").style.display = "none";
         });
 
     schedule = await getSchedule();
@@ -392,6 +405,21 @@ async function showAvailability(slot) {
         li.textContent = member.name;
         namesList.appendChild(li);
     });
+
+    popup.style.display = "block";
+}
+
+function showEventDetails(event) {
+    const popup = document.getElementById("eventDetailsPopup");
+    const categoryBadge = document.getElementById("eventCategory");
+    const eventTime = document.getElementById("eventTime");
+    const eventLocation = document.getElementById("eventLocation");
+    const eventWhatToBring = document.getElementById("eventWhatToBring");
+
+    categoryBadge.textContent = event.category;
+    eventTime.textContent = `${event.start} - ${event.end}`;
+    eventLocation.textContent = event.location;
+    eventWhatToBring.textContent = event.what_to_bring;
 
     popup.style.display = "block";
 }

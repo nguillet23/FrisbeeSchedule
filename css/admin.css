@@ -27,6 +27,29 @@
     transform: translateY(-1px);
 }
 
+#scheduleForm #whatToBring {
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 14px;
+    border: 2px solid #b5c4a5;
+    background: linear-gradient(180deg, #fbfbe9 0%, #f2f2dd 100%);
+    box-shadow: inset 0 1px 2px rgba(36, 50, 29, 0.08), 0 4px 10px rgba(36, 50, 29, 0.08);
+    color: #24321d;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+#scheduleForm #whatToBring:focus {
+    border-color: #6b8e5f;
+    box-shadow: 0 0 0 4px rgba(107, 142, 95, 0.2), inset 0 1px 2px rgba(36, 50, 29, 0.08);
+    transform: translateY(-1px);
+}
+
+#scheduleForm #whatToBring::placeholder {
+    color: #a8b89a;
+}
+
 .admin-container {
     min-height: 70vh;
     display: flex;
@@ -62,6 +85,42 @@
     margin-bottom: 25px;
 }
 
+.password-group {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #718064;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: #6b8e5f;
+}
+
+.password-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+.eye-icon,
+.eye-off-icon {
+    stroke: currentColor;
+}
+
 .input-group input {
     width: 100%;
     padding: 15px 14px;
@@ -72,6 +131,10 @@
     color: #24321d;
     outline: none;
     transition: .2s;
+}
+
+.password-group input {
+    padding-right: 45px;
 }
 
 .input-group input:focus {

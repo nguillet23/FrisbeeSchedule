@@ -4,6 +4,7 @@ import { supabase, loginAdmin, logoutAdmin } from "./supabase.js";
 const loginButton = document.getElementById("loginButton");
 const emailInput = document.getElementById("adminEmail");
 const passwordInput = document.getElementById("adminPassword");
+const passwordToggle = document.getElementById("passwordToggle");
 const logoutButton = document.getElementById("logoutButton");
 
 const loginSection = document.getElementById("loginSection");
@@ -12,6 +13,25 @@ const loginMessage = document.getElementById("loginMessage");
 
 const form = document.getElementById("scheduleForm");
 const eventList = document.getElementById("eventList");
+
+
+// Password reveal toggle
+passwordToggle.addEventListener("click", (e) => {
+    e.preventDefault();
+    
+    const eyeIcon = passwordToggle.querySelector(".eye-icon");
+    const eyeOffIcon = passwordToggle.querySelector(".eye-off-icon");
+    
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.style.display = "none";
+        eyeOffIcon.style.display = "block";
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.style.display = "block";
+        eyeOffIcon.style.display = "none";
+    }
+});
 
 
 // Login
@@ -77,7 +97,8 @@ async function loadEvents() {
             <span>
                 ${event.category}<br>
                 ${event.start_time} - ${event.end_time}<br>
-                ${event.location}
+                ${event.location}<br>
+                <em>Bring: ${event.what_to_bring || "N/A"}</em>
             </span>
 
             <button class="deleteButton" data-id="${event.id}">
@@ -109,7 +130,9 @@ form.addEventListener("submit", async (event) => {
 
         end_time: document.getElementById("endTime").value,
 
-        location: document.getElementById("location").value
+        location: document.getElementById("location").value,
+
+        what_to_bring: document.getElementById("whatToBring").value
 
     };
 

@@ -528,4 +528,17 @@
     overflow: hidden;
   }
 
+  .accordion-content-day .time-grid {
+    background-image: 
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 59px,
+        #b5c4a5 59px,
+        #b5c4a5 60px
+      );
+    background-size: 100% 60px;
+    background-position: 0 0;
+  }
+
 }

@@ -353,7 +353,7 @@ button:hover {
 
 }
 
-@media (max-width:768px) {
+@media (max-width:1059px) {
   body {
     padding:15px 8px;
   }

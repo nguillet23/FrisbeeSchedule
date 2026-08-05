@@ -82,6 +82,12 @@
   align-items: center;
 }
 
+.availability select,
+.availability input[type="time"] {
+  width: 100%;
+  min-width: 0;
+}
+
 @media (max-width: 680px) {
   .availability {
     grid-template-columns: repeat(4, minmax(0, 1fr));

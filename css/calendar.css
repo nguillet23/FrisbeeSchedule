@@ -10,6 +10,7 @@
     0 20px 50px rgba(0,0,0,0.18);
   border: 1px solid rgba(255,255,255,0.4);
   scrollbar-width: thin;
+  overflow: hidden;
 }
 
 .calendar::-webkit-scrollbar {
@@ -44,6 +45,8 @@
   height: auto;
   overflow-x: auto;
   overflow-y: visible;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .calendar-grid {
@@ -434,15 +437,25 @@
     gap: 0;
     min-width: auto;
     width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
   }
 
   .day-column-wrapper {
     display: block;
     border-bottom: 1px solid #a8b89a;
+    overflow: hidden;
+  }
+
+  .day-column-wrapper:first-child {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
   }
 
   .day-column-wrapper:last-child {
     border-bottom: none;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
 
   .accordion-header {

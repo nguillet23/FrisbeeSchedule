@@ -76,10 +76,10 @@
   margin-bottom: 15px;
 
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 10px;
 
-  align-items: center;
+  align-items: stretch;
 }
 
 .availability select,
@@ -88,14 +88,19 @@
   min-width: 0;
 }
 
-@media (max-width: 680px) {
+.removeTime {
+  width: 100%;
+}
+
+@media (min-width: 1060px) {
   .availability {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
+    gap: 10px;
+    align-items: center;
   }
 
   .removeTime {
-    width: 100%;
+    width: auto;
   }
 }
 

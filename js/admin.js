@@ -77,7 +77,8 @@ async function loadEvents() {
             <span>
                 ${event.category}<br>
                 ${event.start_time} - ${event.end_time}<br>
-                ${event.location}
+                ${event.location}<br>
+                <em>Bring: ${event.what_to_bring || "N/A"}</em>
             </span>
 
             <button class="deleteButton" data-id="${event.id}">
@@ -109,7 +110,9 @@ form.addEventListener("submit", async (event) => {
 
         end_time: document.getElementById("endTime").value,
 
-        location: document.getElementById("location").value
+        location: document.getElementById("location").value,
+
+        what_to_bring: document.getElementById("whatToBring").value
 
     };
 

@@ -71,13 +71,13 @@
 
 .availability {
   background: #c5d4b3;
-  padding: 15px;
+  padding: 10px;
   border-radius: 14px;
   margin-bottom: 15px;
 
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 8px;
 
   align-items: stretch;
 }
@@ -86,10 +86,14 @@
 .availability input[type="time"] {
   width: 100%;
   min-width: 0;
+  font-size: 0.95rem;
+  padding: 8px 10px;
 }
 
 .removeTime {
   width: 100%;
+  font-size: 0.9rem;
+  padding: 8px 10px;
 }
 
 @media (min-width: 1060px) {
@@ -97,10 +101,19 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
     align-items: center;
+    padding: 15px;
+  }
+
+  .availability select,
+  .availability input[type="time"] {
+    font-size: 1rem;
+    padding: 10px 12px;
   }
 
   .removeTime {
     width: auto;
+    font-size: 1rem;
+    padding: 10px 14px;
   }
 }
 
@@ -111,7 +124,6 @@
 
 .removeTime {
   background: #b8743e;
-  padding: 10px 14px;
 }
 
 .removeTime:hover {

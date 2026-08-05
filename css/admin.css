@@ -85,6 +85,42 @@
     margin-bottom: 25px;
 }
 
+.password-group {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #718064;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: #6b8e5f;
+}
+
+.password-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+.eye-icon,
+.eye-off-icon {
+    stroke: currentColor;
+}
+
 .input-group input {
     width: 100%;
     padding: 15px 14px;
@@ -95,6 +131,10 @@
     color: #24321d;
     outline: none;
     transition: .2s;
+}
+
+.password-group input {
+    padding-right: 45px;
 }
 
 .input-group input:focus {

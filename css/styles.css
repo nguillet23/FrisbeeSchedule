@@ -330,11 +330,6 @@ button:hover {
 
 @media (max-width:1200px) {
 
-  .calendar-grid,
-  .calendar-header {
-    min-width: 980px;
-  }
-
   .entry {
     padding:6px;
   }
@@ -373,27 +368,23 @@ button:hover {
     font-size:0.95rem;
   }
 
+  .day-navigation {
+    gap: 10px;
+  }
+
+  .nav-button {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+
+  .day-indicator {
+    font-size: 1rem;
+    min-width: 140px;
+  }
+
   .calendar {
     width: 100%;
-    overflow-x: auto;
-    overflow-y: visible;
     border-radius: 15px;
-    touch-action: pan-y;
-  }
-
-  .calendar-header,
-  .calendar-grid {
-    min-width:980px;
-  }
-
-  .calendar-header {
-    grid-template-columns:80px repeat(7, minmax(140px, 1fr));
-    width:1060px;
-  }
-
-  .calendar-grid {
-    grid-template-columns:repeat(7, minmax(140px, 1fr));
-    width:980px;
   }
 
   .day-header {

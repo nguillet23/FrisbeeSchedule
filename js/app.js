@@ -80,6 +80,7 @@ async function getSchedule() {
 
     data.forEach(event => {
         schedule[event.day].push({
+            day: event.day,
             category: event.category,
             start: convertTime(event.start_time),
             end: convertTime(event.end_time),
@@ -411,11 +412,13 @@ async function showAvailability(slot) {
 
 function showEventDetails(event) {
     const popup = document.getElementById("eventDetailsPopup");
+    const eventDay = document.getElementById("eventDay");
     const categoryBadge = document.getElementById("eventCategory");
     const eventTime = document.getElementById("eventTime");
     const eventLocation = document.getElementById("eventLocation");
     const eventWhatToBring = document.getElementById("eventWhatToBring");
 
+    eventDay.textContent = event.day;
     categoryBadge.textContent = event.category;
     eventTime.textContent = `${event.start} - ${event.end}`;
     eventLocation.textContent = event.location;

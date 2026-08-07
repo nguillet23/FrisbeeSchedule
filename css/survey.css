@@ -93,9 +93,12 @@
     font-size: 0.95rem;
     padding: 8px 10px;
     
-    /* ADD THESE FOR SAFARI */
+    /* CRITICAL FOR SAFARI TIME PICKER */
     -webkit-appearance: none;
     appearance: none;
+    
+    /* Explicit max-width constraint */
+    max-width: calc(100vw - 20px); /* ← ADD THIS */
 }
 
 .removeTime {
@@ -126,17 +129,11 @@
 }
 
 @media (max-width: 600px) {
-    .availability {
-        width: 100%;
-        box-sizing: border-box;
-        overflow: hidden; /* ← ENSURE THIS IS HERE */
-    }
-
     .availability input[type="time"],
     .availability select,
     .removeTime {
         width: 100%;
-        max-width: 100%;
+        max-width: calc(100vw - 20px); /* ← ADD THIS */
         box-sizing: border-box;
     }
 }

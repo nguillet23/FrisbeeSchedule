@@ -1,69 +1,7 @@
-import { supabase, loginAdmin, logoutAdmin } from "./supabase.js";
-
-
-const loginButton = document.getElementById("loginButton");
-const emailInput = document.getElementById("adminEmail");
-const passwordInput = document.getElementById("adminPassword");
-const passwordToggle = document.getElementById("passwordToggle");
-const logoutButton = document.getElementById("logoutButton");
-
-const loginSection = document.getElementById("loginSection");
-const adminPanel = document.getElementById("adminPanel");
-const loginMessage = document.getElementById("loginMessage");
-
+import { supabase } from "./supabase.js";
 const form = document.getElementById("scheduleForm");
 const eventList = document.getElementById("eventList");
-
-
-// Password reveal toggle
-passwordToggle.addEventListener("click", (e) => {
-    e.preventDefault();
-    
-    const eyeIcon = passwordToggle.querySelector(".eye-icon");
-    const eyeOffIcon = passwordToggle.querySelector(".eye-off-icon");
-    
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        eyeIcon.style.display = "none";
-        eyeOffIcon.style.display = "block";
-    } else {
-        passwordInput.type = "password";
-        eyeIcon.style.display = "block";
-        eyeOffIcon.style.display = "none";
-    }
-});
-
-
-// Login
-loginButton.addEventListener("click", async () => {
-
-    const email = emailInput.value;
-    const password = passwordInput.value;
-
-
-    const result = await loginAdmin(email, password);
-
-
-    if (!result.session) {
-
-        if (result.error.message.includes("Invalid login credentials")) {
-            loginMessage.textContent = "Wrong username or password";
-        } else {
-            loginMessage.textContent = "Login error. Try again.";
-        }
-
-        return;
-    }
-
-
-    loginMessage.textContent = "";
-
-    loginSection.style.display = "none";
-    adminPanel.style.display = "block";
-
-    loadEvents();
-
-});
+loadEvents();
 
 
 // Load schedule events
@@ -190,14 +128,4 @@ eventList.addEventListener("click", async (event) => {
 
     }
 
-});
-
-logoutButton.addEventListener("click", async () => {
-    await logoutAdmin();
-
-    adminPanel.style.display = "none";
-    loginSection.style.display = "block";
-
-    emailInput.value = "";
-    passwordInput.value = "";
 });

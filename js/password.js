@@ -1,4 +1,4 @@
-import { getSitePassword } from "./supabase.js";
+import { getPasswords } from "./supabase.js";
 
 const form = document.getElementById("sitePasswordForm");
 const passwordInput = document.getElementById("sitePassword");
@@ -27,19 +27,33 @@ form.addEventListener("submit", async (event) => {
         return;
     }
 
-    const savedPassword = await getSitePassword();
+    const passwords = await getPasswords();
 
-    if (!savedPassword) {
-        showMessage("Website access is not configured yet.");
+    if (!passwords) {
+        showMessage("Password system is not configured.");
         return;
     }
 
-    if (enteredPassword !== savedPassword) {
-        showMessage("Wrong password.");
-        passwordInput.value = "";
+    if (enteredPassword === passwords.website) {
+
+        sessionStorage.setItem("frisbeeScheduleUnlocked", "true");
+        sessionStorage.setItem("role", "viewer");
+
+        window.location.href = "index.html";
         return;
     }
 
-    sessionStorage.setItem("frisbeeScheduleUnlocked", "true");
-    window.location.href = "index.html";
+
+    if (enteredPassword === passwords.admin) {
+
+        sessionStorage.setItem("frisbeeScheduleUnlocked", "true");
+        sessionStorage.setItem("role", "admin");
+
+        window.location.href = "index.html";
+        return;
+    }
+
+
+    showMessage("Wrong password.");
+    passwordInput.value = "";
 });

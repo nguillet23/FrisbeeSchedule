@@ -19,6 +19,12 @@
     <link rel="stylesheet" href="css/calendar.css">
 </head>
 
+<script>
+    if (sessionStorage.getItem("role") !== "admin") {
+        document.getElementById("adminLink").style.display = "none";
+    }
+</script>
+
 <body>
 
 <div class="container">
@@ -26,7 +32,7 @@
     <nav class="navbar">
         <a href="index.html" class="active">Schedule</a>
         <a href="survey.html">Availability Survey</a>
-        <a href="admin.html">Admin</a>
+        <a href="admin.html" id="adminLink">Admin</a>
     </nav>
 
 
@@ -106,10 +112,16 @@
     </div>
     
     <button id="closeEventPopup">Close</button>
+
+    <script>
+    if (sessionStorage.getItem("role") !== "admin") {
+        document.getElementById("adminLink").style.display = "none";
+    }
+    </script>
 </div>
 
 <script type="module" src="js/app.js"></script>
 
 </body>
 
-</html>
+</html>>

@@ -102,3 +102,23 @@ export async function getSitePassword() {
 
     return data?.value ?? null;
 }
+
+export async function getPasswords() {
+    const { data, error } = await supabase
+        .from("site_settings")
+        .select("key, value")
+        .in("key", [
+            "website_password",
+            "admin_password"
+        ]);
+
+    if (error) {
+        console.error("Error loading passwords:", error);
+        return null;
+    }
+
+    return {
+        website: data.find(x => x.key === "website_password")?.value,
+        admin: data.find(x => x.key === "admin_password")?.value
+    };
+}

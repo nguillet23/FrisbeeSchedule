@@ -15,7 +15,7 @@
     <nav class="navbar">
         <a href="index.html">Schedule</a>
         <a href="survey.html" class="active">Availability Survey</a>
-        <a href="admin.html">Admin</a>
+        <a href="admin.html" id="adminLink">Admin</a>
     </nav>
 
     <h1>Availability Survey</h1>
@@ -81,8 +81,14 @@
         </aside>
 
     </div>
-
+    
 </div>
+
+<script>
+if (sessionStorage.getItem("role") !== "admin") {
+    document.getElementById("adminLink").style.display = "none";
+}
+</script>
 
 <script src="js/site-gate.js"></script>
 <script type="module" src="js/survey.js"></script>

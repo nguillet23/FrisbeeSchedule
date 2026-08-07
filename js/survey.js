@@ -226,7 +226,6 @@ loadNames();
 addButton.addEventListener("click", () => {
 
     const block = document.createElement("div");
-
     block.className = "availability";
 
     block.innerHTML = `
@@ -240,9 +239,15 @@ addButton.addEventListener("click", () => {
             <option>Sunday</option>
         </select>
 
-        <input type="time" class="startTime" min="10:00" max="22:00">
+        <div class="time-input-group">
+            <label>From:</label>
+            <input type="time" class="startTime" min="10:00" max="22:00">
+        </div>
 
-        <input type="time" class="endTime" min="10:00" max="22:00">
+        <div class="time-input-group">
+            <label>To:</label>
+            <input type="time" class="endTime" min="10:00" max="22:00">
+        </div>
 
         <button type="button" class="removeTime">
             Remove

@@ -76,24 +76,35 @@
   margin-bottom: 15px;
 
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
 
   align-items: stretch;
+  overflow: hidden;
 }
 
 .availability select,
 .availability input[type="time"] {
-  width: 100%;
-  min-width: 0;
-  font-size: 0.95rem;
-  padding: 8px 10px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    font-size: 0.95rem;
+    padding: 12px 10px;
+    height: 50px;
+    
+    -webkit-appearance: none;
+    appearance: none;
+    
+    max-width: calc(100vw - 20px);
 }
 
 .removeTime {
   width: 100%;
   font-size: 0.9rem;
-  padding: 8px 10px;
+  padding: 12px 10px;
+  height: 50px;
 }
 
 @media (min-width: 1060px) {
@@ -107,14 +118,33 @@
   .availability select,
   .availability input[type="time"] {
     font-size: 1rem;
-    padding: 10px 12px;
+    padding: 14px 12px;
+    height: 50px;
   }
 
   .removeTime {
     width: auto;
     font-size: 1rem;
-    padding: 10px 14px;
+    padding: 14px 14px;
+    height: 50px;
   }
+}
+
+@media (max-width: 600px) {
+    .availability {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .availability input[type="time"],
+    .availability select,
+    .removeTime {
+        width: 100%;
+        max-width: calc(100vw - 20px);
+        box-sizing: border-box;
+        padding: 12px 10px;
+        height: 50px;
+    }
 }
 
 
@@ -165,4 +195,44 @@
 #addTime::before {
   content: "+ ";
   font-size: 1.2rem;
+}
+
+.time-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.time-input-group label {
+  font-size: 0.85rem;
+  color: #3d5a31;
+  font-weight: 600;
+}
+
+.time-input-group input {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+  padding: 12px 10px;
+  height: 50px;
+  -webkit-appearance: none;
+  appearance: none;
+  max-width: calc(100vw - 20px);
+}
+
+@media (min-width: 1060px) {
+  .time-input-group {
+    gap: 6px;
+  }
+
+  .time-input-group label {
+    font-size: 0.9rem;
+  }
+
+  .time-input-group input {
+    font-size: 1rem;
+    padding: 14px 12px;
+  }
 }

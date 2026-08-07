@@ -55,5 +55,4 @@ form.addEventListener("submit", async (event) => {
 
 
     showMessage("Wrong password.");
-    passwordInput.value = "";
 });

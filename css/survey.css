@@ -80,6 +80,7 @@
   gap: 8px;
 
   align-items: stretch;
+  overflow: hidden; /* ← ADD THIS */
 }
 
 .availability select,
@@ -91,6 +92,10 @@
 
     font-size: 0.95rem;
     padding: 8px 10px;
+    
+    /* ADD THESE FOR SAFARI */
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .removeTime {
@@ -124,6 +129,7 @@
     .availability {
         width: 100%;
         box-sizing: border-box;
+        overflow: hidden; /* ← ENSURE THIS IS HERE */
     }
 
     .availability input[type="time"],

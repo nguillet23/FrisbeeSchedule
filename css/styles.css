@@ -1,7 +1,9 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -214,7 +216,7 @@ h1 {
 /* ============================= */
 
 .survey-container {
-  max-width: 700px;
+  width: 90%;
   margin: 0 auto;
   background: #dcdcc8;
   padding: 35px;
@@ -260,7 +262,8 @@ input[type="time"]:focus {
   box-shadow: 0 0 0 3px rgba(107,142,95,0.25);
 }
 
-input[type="submit"] {
+input[type="submit"],
+button[type="submit"] {
   width: 100%;
   background: #6b8e5f;
   color: white;
@@ -273,8 +276,9 @@ input[type="submit"] {
 }
 
 
-input[type="submit"]:hover {
-  background: #58764d;
+input[type="submit"]:hover,
+button[type="submit"]:hover {
+    background: #58764d;
 }
 
 /* ============================= */
@@ -293,7 +297,10 @@ button {
   font-weight: 600;
 
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 button:hover {
@@ -473,13 +480,11 @@ button:hover {
 }
 
 @media (max-width: 560px) {
-  .survey-container,
-  .login-card {
+  .survey-container {
     padding: 20px;
   }
 
-  .survey-container h1,
-  .login-card h1 {
+  .survey-container h1{
     font-size: 1.7rem;
   }
 }

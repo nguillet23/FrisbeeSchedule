@@ -76,7 +76,7 @@
   margin-bottom: 15px;
 
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
 
   align-items: stretch;
@@ -84,10 +84,13 @@
 
 .availability select,
 .availability input[type="time"] {
-  width: 100%;
-  min-width: 0;
-  font-size: 0.95rem;
-  padding: 8px 10px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    font-size: 0.95rem;
+    padding: 8px 10px;
 }
 
 .removeTime {
@@ -115,6 +118,21 @@
     font-size: 1rem;
     padding: 10px 14px;
   }
+}
+
+@media (max-width: 600px) {
+    .availability {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .availability input[type="time"],
+    .availability select,
+    .removeTime {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
 }
 
 

@@ -1,6 +1,5 @@
 import { getAvailability, getMembers, updateAvailability } from "./supabase.js";
 
-
 const form = document.getElementById("surveyForm");
 const nameDropdown = document.getElementById("name");
 const container = document.getElementById("availabilityContainer");
@@ -83,17 +82,29 @@ function mergeAvailabilitySlots(slots) {
     return grouped;
 }
 
-function renderSelectedMemberSchedule(memberName, slots) {
-    const mergedAvailability = mergeAvailabilitySlots(slots);
-    const previewRows = [];
-
-    previewMemberName.textContent = memberName ? `${memberName}'s availability` : "Choose a member to preview their availability.";
+async function renderSelectedMemberSchedule(memberId, memberName) {
+    // Clear previous content
     memberSchedulePreview.innerHTML = "";
+    previewMemberName.textContent = memberName ? `${memberName}'s availability` : "Choose a member to preview their availability.";
 
+    // Handle no member selected
+    if (!memberId) {
+        memberSchedulePreview.innerHTML = "<p class=\"preview-empty\">Select a member.</p>";
+        return;
+    }
+
+    // Fetch availability from Supabase
+    const availability = await getAvailability();
+    const slots = availability.filter(slot => Number(slot.member_id) === Number(memberId));
+
+    // Handle no availability
     if (!slots.length) {
         memberSchedulePreview.innerHTML = "<p class=\"preview-empty\">No availability saved yet.</p>";
         return;
     }
+
+    // Merge and render
+    const mergedAvailability = mergeAvailabilitySlots(slots);
 
     days.forEach(day => {
         const daySlots = mergedAvailability[day];
@@ -118,113 +129,42 @@ function renderSelectedMemberSchedule(memberName, slots) {
 
         dayCard.appendChild(dayTitle);
         dayCard.appendChild(timeList);
-        previewRows.push(dayCard);
+        memberSchedulePreview.appendChild(dayCard);
     });
-
-    if (!previewRows.length) {
-        memberSchedulePreview.innerHTML = "<p class=\"preview-empty\">No availability saved yet.</p>";
-        return;
-    }
-
-    previewRows.forEach(row => memberSchedulePreview.appendChild(row));
-}
-
-function getDraftAvailability() {
-    const memberId = nameDropdown.value;
-
-    if (!memberId) {
-        return [];
-    }
-
-    const draftAvailability = [];
-
-    document.querySelectorAll(".availability").forEach(block => {
-        const startTime = block.querySelector(".startTime").value;
-        const endTime = block.querySelector(".endTime").value;
-        const day = block.querySelector(".day").value;
-
-        if (!startTime || !endTime) {
-            return;
-        }
-
-        draftAvailability.push({
-            member_id: Number(memberId),
-            day,
-            start_time: startTime,
-            end_time: endTime
-        });
-    });
-
-    return draftAvailability;
-}
-
-function updatePreviewFromDraft() {
-    const memberId = nameDropdown.value;
-
-    if (!memberId) {
-        previewMemberName.textContent = "Choose a member to preview their availability.";
-        memberSchedulePreview.innerHTML = "<p class=\"preview-empty\">Select a member.</p>";
-        return;
-    }
-
-    const selectedName = nameDropdown.options[nameDropdown.selectedIndex]?.textContent || "Selected member";
-    const draftAvailability = getDraftAvailability();
-
-    renderSelectedMemberSchedule(selectedName, draftAvailability);
 }
 
 async function loadSelectedMemberSchedule() {
     const memberId = nameDropdown.value;
-
-    if (!memberId) {
-        previewMemberName.textContent = "Choose a member to preview their availability.";
-        memberSchedulePreview.innerHTML = "<p class=\"preview-empty\">Select a member.</p>";
-        return;
-    }
-
-    const availability = await getAvailability();
-    const selectedMemberAvailability = availability.filter(slot => Number(slot.member_id) === Number(memberId));
     const selectedName = nameDropdown.options[nameDropdown.selectedIndex]?.textContent || "Selected member";
 
-    renderSelectedMemberSchedule(selectedName, selectedMemberAvailability);
+    await renderSelectedMemberSchedule(memberId, selectedName);
 }
 
 // Load names from Supabase
 async function loadNames() {
-
     const members = await getMembers();
 
     nameDropdown.innerHTML = "";
-
     members.forEach(member => {
-
         const option = document.createElement("option");
-
         option.value = member.id;
         option.textContent = member.name;
-
         nameDropdown.appendChild(option);
-
     });
 
     if (members.length > 0) {
         nameDropdown.selectedIndex = 0;
     }
-
     loadSelectedMemberSchedule();
 }
 
 nameDropdown.addEventListener("change", loadSelectedMemberSchedule);
-
-container.addEventListener("input", updatePreviewFromDraft);
-container.addEventListener("change", updatePreviewFromDraft);
 
 loadNames();
 
 
 // Add another availability block
 addButton.addEventListener("click", () => {
-
     const block = document.createElement("div");
     block.className = "availability";
 
@@ -253,68 +193,46 @@ addButton.addEventListener("click", () => {
             Remove
         </button>
     `;
-
     container.appendChild(block);
-
 });
 
 
 // Remove availability block
 container.addEventListener("click", (event) => {
-
     if (event.target.classList.contains("removeTime")) {
-
         event.target.parentElement.remove();
-
     }
-
 });
 
 
 // Submit availability
 form.addEventListener("submit", async (event) => {
-
     event.preventDefault();
-
-
     const memberId = nameDropdown.value;
-
-
     const availability = [];
 
-
     document.querySelectorAll(".availability").forEach(block => {
-
         availability.push({
-
             member_id: Number(memberId),
-
             day: block.querySelector(".day").value,
-
             start_time: block.querySelector(".startTime").value,
-
             end_time: block.querySelector(".endTime").value
-
         });
-
     });
 
     for (const slot of availability) {
-    if (!validTime(slot.start_time) || !validTime(slot.end_time)) {
-        alert("Times must be between 10:00 AM and 10:00 PM.");
-        return;
-    }
+        if (!validTime(slot.start_time) || !validTime(slot.end_time)) {
+            alert("Times must be between 10:00 AM and 10:00 PM.");
+            return;
+        }
 
-    if (slot.start_time >= slot.end_time) {
-        alert("End time must be after start time.");
-        return;
-    }
+        if (slot.start_time >= slot.end_time) {
+            alert("End time must be after start time.");
+            return;
+        }
     }
 
     await updateAvailability(memberId, availability);
-
     await loadSelectedMemberSchedule();
-
     alert("Availability saved!");
-
 });

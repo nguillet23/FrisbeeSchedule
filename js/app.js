@@ -5,7 +5,9 @@ const categories = {
     Meeting: "category-2",
     Tournament: "category-3",
     Scrimmage: "category-4",
-    "Frisbee Friday": "category-5"
+    "Frisbee Friday": "category-5",
+    "Chain Gang": "category-6",
+    "Hang Out": "category-7",
 };
 
 const days = [

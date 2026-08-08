@@ -315,6 +315,39 @@
   color: #5a4776;
 }
 
+/* Chain Gang */
+.entry.category-6 {
+background: #c3d6d1;
+border-left-color: #5f8a80;
+color: #365b54;
+}
+.entry.category-6 .category-badge {
+color: #365b54;
+}
+.entry.category-6 .time {
+color: #52786f;
+}
+.entry.category-6 .location {
+color: #456a62;
+}
+
+/* Hang Out */
+.entry.category-7 {
+background: #f1d4c8;
+border-left-color: #c9826b;
+color: #684033;
+}
+.entry.category-7 .category-badge {
+color: #684033;
+}
+.entry.category-7 .time {
+color: #9a6250;
+}
+.entry.category-7 .location {
+color: #80503f;
+}
+
+
 
 /* ============================= */
 /* Availability Suggestions */

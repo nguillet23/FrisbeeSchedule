@@ -37,7 +37,7 @@ body {
 }
 
 h1 {
-  color: #002a54;
+  color: #001171;
   text-align: center;
   margin-bottom: 35px;
   font-size: clamp(1.8rem, 4.8vw, 3rem);
@@ -141,7 +141,7 @@ h1 {
 .password-subtitle {
   text-align: center;
   margin-bottom: 24px;
-  color: #4a7ba7;
+  color: #11304b;
 }
 
 .password-form {

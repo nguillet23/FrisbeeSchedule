@@ -18,35 +18,53 @@ async function loadEvents() {
         return;
     }
 
+    // Organize events by day of week
+    const daysOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const eventsByDay = {};
+
+    daysOrder.forEach(day => {
+        eventsByDay[day] = [];
+    });
+
+    data.forEach(event => {
+        if (eventsByDay[event.day]) {
+            eventsByDay[event.day].push(event);
+        }
+    });
 
     eventList.innerHTML = "";
 
+    const daySectionTemplate = document.getElementById("daySectionTemplate");
+    const eventCardTemplate = document.getElementById("eventCardTemplate");
 
-    data.forEach(event => {
+    // Display events organized by day
+    daysOrder.forEach(day => {
+        if (eventsByDay[day].length > 0) {
+            const daySection = daySectionTemplate.content.cloneNode(true);
+            daySection.querySelector(".dayHeader").textContent = day;
 
-        const item = document.createElement("div");
+            const dayEvents = daySection.querySelector(".dayEvents");
 
-        item.className = "availability";
+            eventsByDay[day].forEach(event => {
+                const card = eventCardTemplate.content.cloneNode(true);
 
+                card.querySelector(".eventCategory").textContent = event.category;
+                card.querySelector(".deleteButton").dataset.id = event.id;
 
-        item.innerHTML = `
-            <strong>${event.day}</strong>
+                card.querySelector(".eventTime span").textContent = `${event.start_time} – ${event.end_time}`;
+                card.querySelector(".eventLocation span").textContent = event.location;
 
-            <span>
-                ${event.category}<br>
-                ${event.start_time} - ${event.end_time}<br>
-                ${event.location}<br>
-                <em>Bring: ${event.what_to_bring || "N/A"}</em>
-            </span>
+                if (event.what_to_bring) {
+                    card.querySelector(".eventBring span").textContent = event.what_to_bring;
+                } else {
+                    card.querySelector(".eventBring").remove();
+                }
 
-            <button class="deleteButton" data-id="${event.id}">
-                Delete
-            </button>
-        `;
+                dayEvents.appendChild(card);
+            });
 
-
-        eventList.appendChild(item);
-
+            eventList.appendChild(daySection);
+        }
     });
 
 }
@@ -57,39 +75,18 @@ form.addEventListener("submit", async (event) => {
 
     event.preventDefault();
 
-
     const newEvent = {
-
         day: document.getElementById("day").value,
-
         category: document.getElementById("category").value,
-
         start_time: document.getElementById("startTime").value,
-
         end_time: document.getElementById("endTime").value,
-
         location: document.getElementById("location").value,
-
         what_to_bring: document.getElementById("whatToBring").value
-
     };
-
 
     const { error } = await supabase
         .from("schedule")
         .insert(newEvent);
-
-
-    if (error) {
-
-        console.error(error);
-
-        alert("Could not add event");
-
-        return;
-
-    }
-
 
     alert("Event added!");
 
@@ -105,27 +102,19 @@ eventList.addEventListener("click", async (event) => {
 
     if (event.target.classList.contains("deleteButton")) {
 
-
         const id = event.target.dataset.id;
-
 
         const { error } = await supabase
             .from("schedule")
             .delete()
             .eq("id", id);
 
-
         if (error) {
-
             console.error(error);
-
             return;
-
         }
 
-
         loadEvents();
-
     }
 
 });

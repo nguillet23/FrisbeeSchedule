@@ -20,7 +20,7 @@ The app allows users to:
 
 ## Website
 
-[FrisbeeSchedule](https://nguillet23.github.io/FrisbeeSchedule/?utm_source=chatgpt.com)
+[FrisbeeSchedule](https://nguillet23.github.io/FrisbeeSchedule)
 
 ## Built With
 

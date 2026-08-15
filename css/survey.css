@@ -20,16 +20,16 @@
 }
 
 .schedule-preview-panel {
-  background: #f7f5ec;
-  border: 2px solid #b0c58f;
+  background: #f0f6ff;
+  border: 2px solid #80b3e6;
   border-radius: 18px;
   padding: 18px;
-  box-shadow: 0 10px 24px rgba(61, 90, 49, 0.12);
+  box-shadow: 0 10px 24px rgba(0, 61, 122, 0.12);
 }
 
 .preview-member-name {
   font-weight: 700;
-  color: #3d5a31;
+  color: #002a54;
   margin-bottom: 12px;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .preview-day-card {
-  background: #e8f0dc;
+  background: #e6f0ff;
   border-radius: 12px;
   padding: 12px;
 }
@@ -47,7 +47,7 @@
 .preview-day-card h3 {
   margin: 0 0 8px;
   font-size: 1rem;
-  color: #3d5a31;
+  color: #002a54;
 }
 
 .preview-day-card ul {
@@ -70,7 +70,7 @@
 /* ============================= */
 
 .availability {
-  background: #c5d4b3;
+  background: #c8deff;
   padding: 10px;
   border-radius: 14px;
   margin-bottom: 15px;
@@ -93,9 +93,6 @@
     font-size: 0.95rem;
     padding: 12px 10px;
     height: 50px;
-    
-    -webkit-appearance: none;
-    appearance: none;
     
     max-width: calc(100vw - 20px);
 }
@@ -153,11 +150,11 @@
 /* ============================= */
 
 .removeTime {
-  background: #b8743e;
+  background: #d97706;
 }
 
 .removeTime:hover {
-  background: #985c2e;
+  background: #b85a00;
 }
 
 
@@ -169,10 +166,10 @@
   width: 100%;
   margin-bottom: 20px;
 
-  background: #d8e8c8;
-  color: #3d5a31;
+  background: #e6f0ff;
+  color: #002a54;
 
-  border: 2px solid #6b8e5f;
+  border: 2px solid #003d7a;
 
   padding: 14px;
   border-radius: 14px;
@@ -185,11 +182,11 @@
 }
 
 #addTime:hover {
-  background: #6b8e5f;
+  background: #003d7a;
   color: white;
 
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(107,142,95,0.25);
+  box-shadow: 0 8px 16px rgba(0, 61, 122, 0.25);
 }
 
 #addTime::before {
@@ -205,7 +202,7 @@
 
 .time-input-group label {
   font-size: 0.85rem;
-  color: #3d5a31;
+  color: #002a54;
   font-weight: 600;
 }
 

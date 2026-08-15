@@ -14,19 +14,17 @@
     max-width: 100%;
     padding: 16px 18px;
     border-radius: 14px;
-    border: 2px solid #b5c4a5;
+    border: 2px solid #b0d4ff;
     background: linear-gradient(180deg, #fbfbe9 0%, #f2f2dd 100%);
     box-shadow:
-        inset 0 1px 2px rgba(36, 50, 29, 0.08),
-        0 4px 10px rgba(36, 50, 29, 0.08);
-    color: #24321d;
+        inset 0 1px 2px rgba(0, 61, 122, 0.08),
+        0 4px 10px rgba(0, 61, 122, 0.08);
+    color: #1a1a1a;
     font-size: 1.05rem;
     outline: none;
     box-sizing: border-box;
-    
-    -webkit-appearance: none; /* ← ADD THIS */
-    appearance: none;
-    max-width: calc(100vw - 40px); /* ← ADD THIS */
+
+    max-width: calc(100vw - 40px);
     
     transition:
         border-color 0.2s ease,
@@ -36,13 +34,158 @@
 
 #scheduleForm #location:focus,
 #scheduleForm #whatToBring:focus {
-    border-color: #6b8e5f;
+    border-color: #003d7a;
     box-shadow:
-        0 0 0 4px rgba(107, 142, 95, 0.2),
-        inset 0 1px 2px rgba(36, 50, 29, 0.08);
+        0 0 0 4px rgba(0, 61, 122, 0.2),
+        inset 0 1px 2px rgba(0, 61, 122, 0.08);
     transform: translateY(-1px);
 }
 
 #scheduleForm #whatToBring::placeholder {
-    color: #a8b89a;
+    color: #9bb3d4;
+}
+
+/* ============================= */
+/* Event List Styling */
+/* ============================= */
+
+#eventList {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.daySection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dayHeader {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #003d7a;
+    margin: 0;
+    padding: 12px 0;
+    border-bottom: 3px solid #b0d4ff;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+}
+
+.dayEvents {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.eventCard {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);
+    border: 1.5px solid #d4e4f7;
+    border-radius: 12px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 61, 122, 0.06);
+}
+
+.eventCard:hover {
+    border-color: #b0d4ff;
+    box-shadow: 0 6px 16px rgba(0, 61, 122, 0.12);
+    transform: translateY(-2px);
+}
+
+.eventHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.eventCategory {
+    font-size: 0.95rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #003d7a 0%, #005db3 100%);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    text-transform: capitalize;
+}
+
+.deleteButton {
+    background: #ff6b6b;
+    border: none;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.deleteButton:hover {
+    background: #ff5252;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.deleteButton:active {
+    transform: scale(0.95);
+}
+
+.eventTime,
+.eventLocation,
+.eventBring {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: #1a1a1a;
+}
+
+.timeIcon,
+.locationIcon,
+.bringIcon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: #003d7a;
+    opacity: 0.8;
+}
+
+.eventTime {
+    color: #003d7a;
+    font-weight: 500;
+}
+
+.eventLocation {
+    color: #555;
+}
+
+.eventBring {
+    color: #666;
+    font-style: italic;
+    padding: 8px 12px;
+    background: rgba(0, 61, 122, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid #b0d4ff;
+    margin-top: 4px;
+}
+
+/* Empty state fallback */
+#eventList:empty::before {
+    content: "No events scheduled yet. Add one above!";
+    color: #999;
+    font-style: italic;
+    padding: 32px 16px;
+    text-align: center;
+    width: 100%;
 }

@@ -1,4 +1,5 @@
 import { getAvailability, getMembers, updateAvailability } from "./supabase.js";
+import { trackFormSubmit } from "./analytics.js";
 
 const form = document.getElementById("surveyForm");
 const nameDropdown = document.getElementById("name");
@@ -233,6 +234,7 @@ form.addEventListener("submit", async (event) => {
     }
 
     await updateAvailability(memberId, availability);
+    await trackFormSubmit(memberId);
     await loadSelectedMemberSchedule();
     alert("Availability saved!");
 });

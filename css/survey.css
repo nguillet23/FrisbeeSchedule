@@ -94,9 +94,6 @@
     padding: 12px 10px;
     height: 50px;
     
-    -webkit-appearance: none;
-    appearance: none;
-    
     max-width: calc(100vw - 20px);
 }
 

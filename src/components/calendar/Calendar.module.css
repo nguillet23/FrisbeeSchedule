@@ -342,11 +342,17 @@
   border: none;
   border-radius: 12px;
   padding: 25px;
+  /* Keeps the bottom of the modal off the home indicator on iPhone (0 on
+     devices with no safe area, so a no-op elsewhere); the max-height keeps
+     it from running under the top/bottom safe areas on a short viewport. */
+  padding-bottom: calc(25px + env(safe-area-inset-bottom));
   box-shadow: var(--shadow-md);
   background: var(--primary-light);
   width: min(92vw, 380px);
   max-width: 92vw;
   height: fit-content;
+  max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 32px);
+  overflow-y: auto;
 }
 
 .modal::backdrop {
@@ -560,7 +566,8 @@
     left: 4px;
     right: 4px;
     padding: 7px;
-    min-height: 40px;
+    /* >=44px meets the recommended minimum touch-target size on a phone. */
+    min-height: 44px;
   }
   .categoryBadge {
     font-size: 0.65rem;

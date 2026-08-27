@@ -86,7 +86,9 @@
   min-width: 0;
   box-sizing: border-box;
 
-  font-size: 0.95rem;
+  /* >=16px avoids Safari's auto-zoom-on-focus on iOS; the original was
+     0.95rem (15.2px) here, under the threshold. */
+  font-size: 1rem;
   padding: 12px 10px;
   height: 50px;
 }
@@ -113,7 +115,6 @@
 
   .availability select,
   .availability input[type='time'] {
-    font-size: 1rem;
     padding: 14px 12px;
     height: 50px;
   }
@@ -192,7 +193,8 @@
   max-width: calc(100vw - 20px);
   min-width: 0;
   box-sizing: border-box;
-  font-size: 0.95rem;
+  /* >=16px avoids Safari's auto-zoom-on-focus on iOS. */
+  font-size: 1rem;
   padding: 12px 10px;
   height: 50px;
   -webkit-appearance: none;
@@ -209,7 +211,6 @@
   }
 
   .timeInputGroup input {
-    font-size: 1rem;
     padding: 14px 12px;
   }
 }

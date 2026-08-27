@@ -136,6 +136,53 @@ button {
     box-shadow 0.2s ease;
 }
 
+/* ============================= */
+/* Form elements (shared by the survey and admin forms) */
+/* ============================= */
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #002a54;
+}
+
+select,
+input[type='time'] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid #b0d4ff;
+  background: #fafbff;
+  color: #1a1a1a;
+  font-size: 1rem;
+  outline: none;
+}
+
+select:focus,
+input[type='time']:focus {
+  border-color: #003d7a;
+  box-shadow: 0 0 0 3px rgba(0, 61, 122, 0.25);
+}
+
+input[type='submit'],
+button[type='submit'] {
+  width: 100%;
+  background: #003d7a;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+input[type='submit']:hover,
+button[type='submit']:hover {
+  background: #002a54;
+}
+
 button:hover {
   background: #002a54;
   transform: translateY(-2px);

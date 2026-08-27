@@ -51,3 +51,11 @@ export function parseHHMMToMinutes(time24h: string): number {
   const [hours, minutes] = time24h.split(':').map(Number)
   return hours * 60 + minutes
 }
+
+// Ported from survey.js. The survey's time inputs are bounded to
+// 10:00-22:00 (matches their min/max attributes); this re-validates that
+// server-side of the browser's own input constraints.
+export function validTime(time24h: string): boolean {
+  const minutes = parseHHMMToMinutes(time24h)
+  return minutes >= 600 && minutes <= 1320
+}

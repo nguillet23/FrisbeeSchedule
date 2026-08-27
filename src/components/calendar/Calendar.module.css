@@ -1,0 +1,592 @@
+/* Ported from css/calendar.css, plus the calendar-specific responsive rules
+   that lived in css/styles.css (font-size shrinking at narrower widths).
+   Class names renamed to camelCase for CSS Modules; values unchanged. */
+
+:root {
+  --primary: #003d7a;
+  --primary-light: #e8f0ff;
+  --primary-border: #b0d4ff;
+  --primary-dark: #002a54;
+  --secondary: #4a7ba7;
+  --light: #f0f6ff;
+  --accent-border: #c8deff;
+  --shadow-sm: 0 3px 8px rgba(0, 61, 122, 0.12);
+  --shadow-md: 0 10px 30px rgba(0, 61, 122, 0.25);
+  --shadow-lg: 0 20px 50px rgba(0, 61, 122, 0.18);
+}
+
+/* Calendar Layout */
+.calendar {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  scrollbar-width: thin;
+  overflow: hidden;
+}
+
+.calendar::-webkit-scrollbar {
+  height: 10px;
+}
+
+.calendar::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+.calendar::-webkit-scrollbar-track {
+  background: var(--primary-light);
+}
+
+.calendarHeader,
+.calendarBody {
+  display: flex;
+  gap: 0;
+}
+
+.calendarHeader {
+  background: var(--primary-light);
+  border-bottom: 1px solid var(--primary-border);
+  position: relative;
+  width: 100%;
+  min-width: 1060px;
+}
+
+.calendarBody {
+  min-height: 0;
+  min-width: 1060px;
+  width: 100%;
+  height: auto;
+  overflow-x: auto;
+  overflow-y: visible;
+  border-radius: 0 0 20px 20px;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0;
+  width: 100%;
+  min-width: 980px;
+  flex: 1 1 auto;
+}
+
+/* Headers & Columns */
+.timeColumn {
+  border-right: 1px solid var(--primary-border);
+  padding: 16px 8px;
+  background: var(--primary-light);
+  flex: 0 0 80px;
+  width: 80px;
+}
+
+.dayHeader {
+  padding: 18px 12px;
+  text-align: center;
+  color: var(--primary-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.8px;
+  background: var(--primary-light);
+  box-shadow: inset 1px 0 0 var(--primary-border);
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+}
+
+.dayHeader:first-child {
+  box-shadow: none;
+}
+
+.timeAxis {
+  border-right: 2px solid var(--primary-border);
+  background: var(--light);
+  flex: 0 0 80px;
+  width: 80px;
+}
+
+.timeLabel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 8px;
+  font-size: 0.8rem;
+  color: var(--secondary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--accent-border);
+  position: relative;
+}
+
+.dayColumn {
+  position: relative;
+  background: var(--primary-light);
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 1px 0 0 var(--accent-border);
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.dayColumn:first-child {
+  box-shadow: none;
+}
+
+.timeGrid {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  height: 780px;
+  z-index: 1;
+}
+
+.unavailable {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #9bb3d4;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Entries */
+.entry {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  min-height: 30px;
+  border-radius: 12px;
+  padding: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  border: 5px solid;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  transition: 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  z-index: 2;
+  font-family: inherit;
+  text-align: left;
+}
+
+.entry:hover {
+  transform: scale(1.04);
+  z-index: 20;
+}
+
+.entry:active {
+  transform: scale(0.98);
+}
+
+.categoryBadge {
+  font-weight: 600;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.time {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.location {
+  font-size: 0.65rem;
+  font-weight: 400;
+  line-height: 1.2;
+  opacity: 0.85;
+}
+
+/* Categories */
+.entry.category1 {
+  background: #b3d9ff;
+  border-left-color: #003d7a;
+  color: #002a54;
+}
+.entry.category1 .categoryBadge {
+  color: #002a54;
+}
+.entry.category1 .time {
+  color: #004399;
+}
+.entry.category1 .location {
+  color: #003366;
+}
+
+.entry.category2 {
+  background: #ffd966;
+  border-left-color: #e6b400;
+  color: #704d00;
+}
+.entry.category2 .categoryBadge {
+  color: #704d00;
+}
+.entry.category2 .time {
+  color: #996600;
+}
+.entry.category2 .location {
+  color: #804020;
+}
+
+.entry.category3 {
+  background: #99d9ff;
+  border-left-color: #0066cc;
+  color: #003366;
+}
+.entry.category3 .categoryBadge {
+  color: #003366;
+}
+.entry.category3 .time {
+  color: #0052a3;
+}
+.entry.category3 .location {
+  color: #004080;
+}
+
+.entry.category4 {
+  background: #ffcc99;
+  border-left-color: #d97706;
+  color: #5a3a1a;
+}
+.entry.category4 .categoryBadge {
+  color: #5a3a1a;
+}
+.entry.category4 .time {
+  color: #8a5a2a;
+}
+.entry.category4 .location {
+  color: #70521d;
+}
+
+.entry.category5 {
+  background: #d9ccff;
+  border-left-color: #6633cc;
+  color: #3b2b55;
+}
+.entry.category5 .categoryBadge {
+  color: #3b2b55;
+}
+.entry.category5 .time {
+  color: #5533aa;
+}
+.entry.category5 .location {
+  color: #4a3d7a;
+}
+
+.entry.category6 {
+  background: #99eeee;
+  border-left-color: #0097b2;
+  color: #1a5f5f;
+}
+.entry.category6 .categoryBadge {
+  color: #1a5f5f;
+}
+.entry.category6 .time {
+  color: #2b7f8f;
+}
+.entry.category6 .location {
+  color: #2a6f7f;
+}
+
+.entry.category7 {
+  background: #ffb3cc;
+  border-left-color: #c9366b;
+  color: #663d4d;
+}
+.entry.category7 .categoryBadge {
+  color: #663d4d;
+}
+.entry.category7 .time {
+  color: #9a5570;
+}
+.entry.category7 .location {
+  color: #80505f;
+}
+
+.entry.available {
+  background: #c8e6c9;
+  border-left-color: #4caf50;
+  color: #2e5d32;
+  z-index: 3;
+}
+.entry.available:hover {
+  z-index: 30;
+}
+.entry.available .categoryBadge {
+  color: #2e5d32;
+}
+.entry.available .time {
+  color: #3d7041;
+}
+.entry.available .location {
+  color: #47794c;
+}
+
+/* Modals (native <dialog>, backdrop included for free). The global reset's
+   `* { margin: 0 }` defeats the UA stylesheet's `margin: auto` centering for
+   dialog[open], so position/inset/margin are set explicitly here instead of
+   relying on the browser default. */
+.modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  border: none;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: var(--shadow-md);
+  background: var(--primary-light);
+  width: min(92vw, 380px);
+  max-width: 92vw;
+  height: fit-content;
+}
+
+.modal::backdrop {
+  background: rgba(0, 42, 84, 0.35);
+}
+
+.modalNarrow {
+  width: min(92vw, 340px);
+}
+
+.modal h2 {
+  margin-bottom: 15px;
+  color: var(--primary-dark);
+}
+
+.modal button {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.modal button:hover {
+  opacity: 0.9;
+}
+
+.memberList {
+  list-style: none;
+  padding: 0;
+}
+
+.memberList li {
+  padding: 8px 0;
+}
+
+.detailItem {
+  margin-bottom: 18px;
+}
+
+.detailLabel {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--primary);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.detailValue {
+  font-size: 1rem;
+  color: var(--primary-dark);
+  line-height: 1.5;
+}
+
+/* Mobile Accordion */
+.dayColumnWrapper {
+  display: contents;
+}
+
+.accordionHeader,
+.accordionToggle,
+.accordionContent {
+  display: none;
+}
+
+@media (min-width: 1060px) {
+  .accordionContent {
+    display: contents;
+  }
+  .accordionContent .timeAxis {
+    display: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  .entry {
+    padding: 6px;
+  }
+  .categoryBadge {
+    font-size: 0.65rem;
+  }
+  .time {
+    font-size: 0.7rem;
+  }
+  .location {
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 1059px) {
+  .calendar {
+    overflow-x: visible;
+    width: 100%;
+    border-radius: 15px;
+  }
+  .calendarHeader {
+    display: none;
+  }
+  .calendarBody {
+    display: block;
+    min-width: auto;
+    overflow-x: visible;
+  }
+  .calendarBody .timeAxis {
+    display: none;
+  }
+  .calendarGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: auto;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .dayColumnWrapper {
+    display: block;
+    border-bottom: 1px solid var(--primary-border);
+    overflow: hidden;
+  }
+  .dayColumnWrapper:first-child {
+    border-radius: 20px 20px 0 0;
+  }
+  .dayColumnWrapper:last-child {
+    border-bottom: none;
+    border-radius: 0 0 20px 20px;
+  }
+  .accordionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 14px;
+    background: var(--primary-light);
+    border-bottom: 1px solid var(--accent-border);
+    cursor: pointer;
+    user-select: none;
+  }
+  .accordionTitle {
+    font-weight: 700;
+    color: var(--primary-dark);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .accordionToggle {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    transition: transform 0.2s ease;
+  }
+  .accordionContent {
+    display: none;
+    background: var(--primary-light);
+    gap: 0;
+    flex-direction: row;
+  }
+  .dayColumnWrapper.active .accordionContent {
+    display: flex;
+  }
+  .dayColumnWrapper.active .accordionToggle {
+    transform: rotate(45deg);
+  }
+  .accordionContent .timeAxis {
+    border-right: 2px solid var(--primary-border);
+    background: var(--light);
+    flex: 0 0 80px;
+    width: 80px;
+    display: none;
+    flex-direction: column;
+  }
+  .dayColumnWrapper.active .accordionContent .timeAxis {
+    display: flex;
+  }
+  .accordionContent .dayColumn {
+    flex: 1;
+    box-shadow: none;
+  }
+  .accordionContentDay {
+    position: relative;
+    background: var(--primary-light);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .accordionContentDay .timeGrid {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 59px,
+      var(--accent-border) 59px,
+      var(--accent-border) 60px
+    );
+    background-size: 100% 60px;
+    background-position: 0 0;
+  }
+
+  .dayHeader {
+    padding: 14px 8px;
+    font-size: 0.8rem;
+  }
+  .timeAxis {
+    width: 80px;
+    flex: 0 0 80px;
+  }
+  .timeLabel {
+    font-size: 0.65rem;
+  }
+  .entry {
+    left: 4px;
+    right: 4px;
+    padding: 7px;
+    min-height: 40px;
+  }
+  .categoryBadge {
+    font-size: 0.65rem;
+  }
+  .time {
+    font-size: 0.65rem;
+  }
+  .location {
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dayHeader {
+    font-size: 0.65rem;
+  }
+  .entry {
+    padding: 4px;
+  }
+  .categoryBadge {
+    font-size: 0.55rem;
+  }
+  .time {
+    font-size: 0.55rem;
+  }
+  .location {
+    font-size: 0.55rem;
+  }
+}

@@ -1,16 +1,39 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { App } from './App'
 import { SiteGateProvider } from './auth/SiteGateContext'
 
+// SchedulePage (rendered at "/") pulls from Supabase via these — App-level
+// tests only care about routing/gating, not calendar content, so stub them.
+vi.mock('./lib/api/schedule', () => ({
+  getSchedule: vi.fn().mockResolvedValue({
+    Monday: [],
+    Tuesday: [],
+    Wednesday: [],
+    Thursday: [],
+    Friday: [],
+    Saturday: [],
+    Sunday: [],
+  }),
+}))
+vi.mock('./lib/api/availability', () => ({
+  getAvailability: vi.fn().mockResolvedValue([]),
+  getMemberNames: vi.fn().mockResolvedValue([]),
+}))
+
 function renderAt(path: string) {
+  const queryClient = new QueryClient()
+
   render(
-    <SiteGateProvider>
-      <MemoryRouter initialEntries={[path]}>
-        <App />
-      </MemoryRouter>
-    </SiteGateProvider>,
+    <QueryClientProvider client={queryClient}>
+      <SiteGateProvider>
+        <MemoryRouter initialEntries={[path]}>
+          <App />
+        </MemoryRouter>
+      </SiteGateProvider>
+    </QueryClientProvider>,
   )
 }
 

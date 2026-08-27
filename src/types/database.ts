@@ -34,28 +34,75 @@ export interface WebsiteVisitRow {
   member_id: number
 }
 
-// supabase-js's typed query builder requires each table to carry a
-// `Relationships` array and the schema to declare `Views`/`Functions`
-// (even when empty) to satisfy its `GenericSchema`/`GenericTable` shape.
+// IMPORTANT: Row/Insert/Update below are fully inlined literal object types,
+// duplicating the interfaces above, on purpose. This @supabase/supabase-js
+// version's type-level select() parser silently resolves to `never` for a
+// table whenever its Row/Insert/Update reference a *named* type (an
+// interface, or a computed type like Omit<>/Partial<>) instead of being
+// written as a literal object type — verified in isolation against a scratch
+// repro. Inlining is the workaround; don't "clean this up" by swapping back
+// to `Row: ScheduleRow` etc. without re-checking that bug first.
 export type Database = {
   public: {
     Tables: {
       schedule: {
-        Row: ScheduleRow
-        Insert: Omit<ScheduleRow, 'id'> & { id?: number }
-        Update: Partial<Omit<ScheduleRow, 'id'>>
+        Row: {
+          id: number
+          day: string
+          category: string
+          start_time: string
+          end_time: string
+          location: string
+          what_to_bring: string | null
+        }
+        Insert: {
+          id?: number
+          day: string
+          category: string
+          start_time: string
+          end_time: string
+          location: string
+          what_to_bring?: string | null
+        }
+        Update: {
+          id?: number
+          day?: string
+          category?: string
+          start_time?: string
+          end_time?: string
+          location?: string
+          what_to_bring?: string | null
+        }
         Relationships: []
       }
       members: {
-        Row: MemberRow
-        Insert: Omit<MemberRow, 'id'> & { id?: number }
-        Update: Partial<Omit<MemberRow, 'id'>>
+        Row: { id: number; name: string }
+        Insert: { id?: number; name: string }
+        Update: { id?: number; name?: string }
         Relationships: []
       }
       availability: {
-        Row: AvailabilityRow
-        Insert: Omit<AvailabilityRow, 'id'> & { id?: number }
-        Update: Partial<Omit<AvailabilityRow, 'id'>>
+        Row: {
+          id: number
+          member_id: number
+          day: string
+          start_time: string
+          end_time: string
+        }
+        Insert: {
+          id?: number
+          member_id: number
+          day: string
+          start_time: string
+          end_time: string
+        }
+        Update: {
+          id?: number
+          member_id?: number
+          day?: string
+          start_time?: string
+          end_time?: string
+        }
         Relationships: [
           {
             foreignKeyName: 'availability_member_id_fkey'
@@ -66,15 +113,15 @@ export type Database = {
         ]
       }
       site_settings: {
-        Row: SiteSettingRow
-        Insert: SiteSettingRow
-        Update: Partial<SiteSettingRow>
+        Row: { key: string; value: string }
+        Insert: { key: string; value: string }
+        Update: { key?: string; value?: string }
         Relationships: []
       }
       website_visits: {
-        Row: WebsiteVisitRow
-        Insert: Omit<WebsiteVisitRow, 'id'> & { id?: number }
-        Update: Partial<Omit<WebsiteVisitRow, 'id'>>
+        Row: { id: number; member_id: number }
+        Insert: { id?: number; member_id: number }
+        Update: { id?: number; member_id?: number }
         Relationships: []
       }
     }

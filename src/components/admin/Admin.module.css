@@ -1,15 +1,19 @@
 /* Ported from css/admin.css, plus the `.survey-container`/`form-group`
    rules from css/styles.css — despite living under a "Survey Styling"
    comment header there, both classes are only ever used by admin.html, not
-   survey.html (which uses its own .survey-layout/.time-input-group). */
+   survey.html (which uses its own .survey-layout/.time-input-group).
+
+   Villanova redesign, casual pass: stone panels + Nova Blue accents/badges,
+   rounder corners and Fredoka/Nunito instead of the earlier Fraunces/mono
+   pairing — smoother and friendlier. */
 
 .surveyContainer {
   width: 90%;
   margin: 0 auto;
-  background: #f0f6ff;
+  background: #edeae1;
   padding: 35px;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0, 61, 122, 0.15);
+  border-radius: 22px;
+  box-shadow: 0 14px 32px rgba(0, 18, 51, 0.16);
 }
 
 .surveyContainer h1 {
@@ -44,12 +48,11 @@
   max-width: calc(100vw - 40px);
   padding: 16px 18px;
   border-radius: 14px;
-  border: 2px solid #b0d4ff;
-  background: linear-gradient(180deg, #fbfbe9 0%, #f2f2dd 100%);
-  box-shadow:
-    inset 0 1px 2px rgba(0, 61, 122, 0.08),
-    0 4px 10px rgba(0, 61, 122, 0.08);
-  color: #1a1a1a;
+  border: 2px solid #c7cfdd;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 18, 51, 0.06);
+  color: #14171f;
+  font-family: 'Nunito', sans-serif;
   font-size: 1.05rem;
   outline: none;
   box-sizing: border-box;
@@ -62,15 +65,13 @@
 
 .locationInput:focus,
 .whatToBringInput:focus {
-  border-color: #003d7a;
-  box-shadow:
-    0 0 0 4px rgba(0, 61, 122, 0.2),
-    inset 0 1px 2px rgba(0, 61, 122, 0.08);
+  border-color: #00205b;
+  box-shadow: 0 0 0 4px rgba(0, 32, 91, 0.2);
   transform: translateY(-1px);
 }
 
 .whatToBringInput::placeholder {
-  color: #9bb3d4;
+  color: #9aa5b8;
 }
 
 /* Event list */
@@ -88,14 +89,15 @@
 }
 
 .dayHeader {
+  font-family: 'Fredoka', 'Nunito', sans-serif;
   font-size: 1.4rem;
-  font-weight: 700;
-  color: #003d7a;
+  font-weight: 600;
+  color: #00205b;
   margin: 0;
   padding: 12px 0;
-  border-bottom: 3px solid #b0d4ff;
+  border-bottom: 3px solid #00205b;
   text-transform: capitalize;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
 
 .dayEvents {
@@ -105,20 +107,23 @@
 }
 
 .eventCard {
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);
-  border: 1.5px solid #d4e4f7;
-  border-radius: 12px;
+  background: #ffffff;
+  border: 1.5px solid #d8d2c0;
+  border-radius: 18px;
   padding: 16px 18px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: all 0.25s ease;
-  box-shadow: 0 2px 6px rgba(0, 61, 122, 0.06);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+  box-shadow: 0 3px 10px rgba(0, 18, 51, 0.05);
 }
 
 .eventCard:hover {
-  border-color: #b0d4ff;
-  box-shadow: 0 6px 16px rgba(0, 61, 122, 0.12);
+  border-color: #00205b;
+  box-shadow: 0 10px 24px rgba(0, 18, 51, 0.14);
   transform: translateY(-2px);
 }
 
@@ -130,18 +135,19 @@
 }
 
 .eventCategory {
+  font-family: 'Fredoka', 'Nunito', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
-  background: linear-gradient(135deg, #003d7a 0%, #005db3 100%);
+  background: #00205b;
   color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
+  padding: 6px 16px;
+  border-radius: 999px;
   display: inline-block;
   text-transform: capitalize;
 }
 
 .deleteButton {
-  background: #ff6b6b;
+  background: #d9634a;
   border: none;
   color: white;
   /* >=44px meets the recommended minimum touch-target size on a phone
@@ -160,9 +166,9 @@
 }
 
 .deleteButton:hover {
-  background: #ff5252;
+  background: #b84e39;
   transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  box-shadow: 0 6px 16px rgba(217, 99, 74, 0.35);
 }
 
 .deleteButton:active {
@@ -176,38 +182,40 @@
   align-items: center;
   gap: 10px;
   font-size: 0.95rem;
-  color: #1a1a1a;
+  color: #14171f;
+}
+
+.eventTime {
+  font-family: 'Nunito', sans-serif;
+  font-variant-numeric: tabular-nums;
+  color: #00205b;
+  font-weight: 700;
 }
 
 .icon {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
-  color: #003d7a;
+  color: #00205b;
   opacity: 0.8;
 }
 
-.eventTime {
-  color: #003d7a;
-  font-weight: 500;
-}
-
 .eventLocation {
-  color: #555;
+  color: #4a4838;
 }
 
 .eventBring {
-  color: #666;
+  color: #5a6b85;
   font-style: italic;
   padding: 8px 12px;
-  background: rgba(0, 61, 122, 0.05);
-  border-radius: 8px;
-  border-left: 3px solid #b0d4ff;
+  background: #edeae1;
+  border-radius: 10px;
+  border-left: 3px solid #00205b;
   margin-top: 4px;
 }
 
 .emptyState {
-  color: #999;
+  color: #7a7566;
   font-style: italic;
   padding: 32px 16px;
   text-align: center;

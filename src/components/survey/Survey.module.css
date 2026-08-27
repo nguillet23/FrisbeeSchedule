@@ -1,4 +1,7 @@
-/* Ported from css/survey.css, camelCase-renamed for CSS Modules. */
+/* Ported from css/survey.css, camelCase-renamed for CSS Modules.
+   Villanova redesign, casual pass: stone panels + Nova Blue accents, but
+   rounder corners and Fredoka/Nunito instead of the earlier Fraunces/mono
+   pairing — smoother and friendlier for a club team's own schedule tool. */
 
 .surveyLayout {
   display: grid;
@@ -15,19 +18,23 @@
 
 .surveyForm {
   min-width: 0;
+  background: #edeae1;
+  border: 2px solid #00205b;
+  border-radius: 22px;
+  padding: 24px;
 }
 
 .schedulePreviewPanel {
-  background: #f0f6ff;
-  border: 2px solid #80b3e6;
-  border-radius: 18px;
+  background: #edeae1;
+  border: 2px solid #00205b;
+  border-radius: 22px;
   padding: 18px;
-  box-shadow: 0 10px 24px rgba(0, 61, 122, 0.12);
+  box-shadow: 0 14px 32px rgba(0, 18, 51, 0.16);
 }
 
 .previewMemberName {
   font-weight: 700;
-  color: #002a54;
+  color: #00205b;
   margin-bottom: 12px;
 }
 
@@ -37,15 +44,18 @@
 }
 
 .previewDayCard {
-  background: #e6f0ff;
-  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #d8d2c0;
+  border-radius: 16px;
   padding: 12px;
 }
 
 .previewDayCard h3 {
+  font-family: 'Fredoka', 'Nunito', sans-serif;
   margin: 0 0 8px;
   font-size: 1rem;
-  color: #002a54;
+  font-weight: 600;
+  color: #00205b;
 }
 
 .previewDayCard ul {
@@ -55,20 +65,24 @@
 
 .previewDayCard li {
   margin-bottom: 4px;
+  font-family: 'Nunito', sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .previewEmpty {
   margin: 0;
-  color: #6b6b6b;
+  color: #5a6b85;
   font-style: italic;
 }
 
 /* Availability form */
 
 .availability {
-  background: #c8deff;
+  background: #dcebfb;
   padding: 10px;
-  border-radius: 14px;
+  border-radius: 18px;
   margin-bottom: 15px;
 
   display: grid;
@@ -98,11 +112,11 @@
   font-size: 0.9rem;
   padding: 12px 10px;
   height: 50px;
-  background: #d97706;
+  background: #d9634a;
 }
 
 .removeTime:hover {
-  background: #b85a00;
+  background: #b84e39;
 }
 
 @media (min-width: 1060px) {
@@ -148,10 +162,10 @@
   width: 100%;
   margin-bottom: 20px;
 
-  background: #e6f0ff;
-  color: #002a54;
+  background: #ffffff;
+  color: #00205b;
 
-  border: 2px solid #003d7a;
+  border: 2px solid #00205b;
 
   padding: 14px;
   border-radius: 14px;
@@ -164,11 +178,11 @@
 }
 
 .addTime:hover {
-  background: #003d7a;
+  background: #00205b;
   color: white;
 
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 61, 122, 0.25);
+  box-shadow: 0 10px 22px rgba(0, 18, 51, 0.25);
 }
 
 .addTime::before {
@@ -184,8 +198,8 @@
 
 .timeInputGroup label {
   font-size: 0.85rem;
-  color: #002a54;
-  font-weight: 600;
+  color: #00205b;
+  font-weight: 700;
 }
 
 .timeInputGroup input {

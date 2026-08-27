@@ -1,26 +1,61 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { App } from './App'
+import { SiteGateProvider } from './auth/SiteGateContext'
 
-describe('App routing', () => {
-  it('renders the schedule page at /', () => {
-    render(
-      <MemoryRouter initialEntries={['/']}>
+function renderAt(path: string) {
+  render(
+    <SiteGateProvider>
+      <MemoryRouter initialEntries={[path]}>
         <App />
-      </MemoryRouter>,
-    )
+      </MemoryRouter>
+    </SiteGateProvider>,
+  )
+}
 
+function unlockAs(role: 'viewer' | 'admin') {
+  sessionStorage.setItem('frisbeeScheduleUnlocked', 'true')
+  sessionStorage.setItem('role', role)
+}
+
+beforeEach(() => {
+  sessionStorage.clear()
+})
+
+describe('site gate', () => {
+  it('sends a locked visitor to the password page regardless of route', () => {
+    renderAt('/survey')
+    expect(
+      screen.getByText('Enter the shared password to access the schedule.'),
+    ).toBeInTheDocument()
+  })
+
+  it('lets an unlocked viewer see the schedule and survey pages', () => {
+    unlockAs('viewer')
+    renderAt('/')
     expect(screen.getByRole('heading', { name: 'Weekly Schedule' })).toBeInTheDocument()
   })
 
-  it('renders the survey page at /survey', () => {
-    render(
-      <MemoryRouter initialEntries={['/survey']}>
-        <App />
-      </MemoryRouter>,
-    )
+  it('bounces a non-admin viewer away from /admin', () => {
+    unlockAs('viewer')
+    renderAt('/admin')
+    expect(screen.queryByRole('heading', { name: 'Schedule Admin' })).not.toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Weekly Schedule' })).toBeInTheDocument()
+  })
 
-    expect(screen.getByRole('heading', { name: 'Availability Survey' })).toBeInTheDocument()
+  it('lets an admin reach /admin', () => {
+    unlockAs('admin')
+    renderAt('/admin')
+    expect(screen.getByRole('heading', { name: 'Schedule Admin' })).toBeInTheDocument()
+  })
+
+  it('redirects an already-unlocked visitor away from /password', () => {
+    unlockAs('viewer')
+    renderAt('/password')
+    expect(screen.getByRole('heading', { name: 'Weekly Schedule' })).toBeInTheDocument()
+    expect(
+      screen.queryByText('Enter the shared password to access the schedule.'),
+    ).not.toBeInTheDocument()
   })
 })

@@ -1,18 +1,41 @@
 import { Route, Routes } from 'react-router-dom'
+import { RequireAdmin } from './auth/RequireAdmin'
+import { RequireUnlocked } from './auth/RequireUnlocked'
 import { AdminPage } from './pages/AdminPage'
 import { PasswordPage } from './pages/PasswordPage'
 import { SchedulePage } from './pages/SchedulePage'
 import { SurveyPage } from './pages/SurveyPage'
 
-// Auth/route guards land in Phase 1 (RequireUnlocked/RequireAdmin) — this is
-// just the routed shell for now, no gating yet.
 export function App() {
   return (
     <Routes>
-      <Route path="/" element={<SchedulePage />} />
-      <Route path="/survey" element={<SurveyPage />} />
-      <Route path="/admin" element={<AdminPage />} />
       <Route path="/password" element={<PasswordPage />} />
+      <Route
+        path="/"
+        element={
+          <RequireUnlocked>
+            <SchedulePage />
+          </RequireUnlocked>
+        }
+      />
+      <Route
+        path="/survey"
+        element={
+          <RequireUnlocked>
+            <SurveyPage />
+          </RequireUnlocked>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <RequireUnlocked>
+            <RequireAdmin>
+              <AdminPage />
+            </RequireAdmin>
+          </RequireUnlocked>
+        }
+      />
     </Routes>
   )
 }

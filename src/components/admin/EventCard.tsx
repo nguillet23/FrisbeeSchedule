@@ -1,19 +1,88 @@
+import { useState } from 'react'
+import type { NewScheduleEvent } from '../../lib/api/schedule'
 import type { ScheduleRow } from '../../types/database'
+import { EventFields } from './EventFields'
 import styles from './Admin.module.css'
 
-export function EventCard({ event, onDelete }: { event: ScheduleRow; onDelete: (id: number) => void }) {
+// <input type="time"> expects "HH:MM" — Postgres time columns come back as
+// "HH:MM:SS" (matches what admin's read-only view already displays as-is).
+function toFieldsValue(event: ScheduleRow): NewScheduleEvent {
+  return {
+    day: event.day as NewScheduleEvent['day'],
+    category: event.category,
+    start_time: event.start_time.slice(0, 5),
+    end_time: event.end_time.slice(0, 5),
+    location: event.location,
+    what_to_bring: event.what_to_bring ?? '',
+  }
+}
+
+export function EventCard({
+  event,
+  onDelete,
+  onUpdate,
+}: {
+  event: ScheduleRow
+  onDelete: (id: number) => void
+  onUpdate: (id: number, event: NewScheduleEvent) => void | Promise<void>
+}) {
+  const [isEditing, setIsEditing] = useState(false)
+  const [draft, setDraft] = useState<NewScheduleEvent>(() => toFieldsValue(event))
+
+  function handleStartEdit() {
+    setDraft(toFieldsValue(event))
+    setIsEditing(true)
+  }
+
+  function handleCancel() {
+    setIsEditing(false)
+  }
+
+  async function handleSave() {
+    await onUpdate(event.id, draft)
+    setIsEditing(false)
+  }
+
+  if (isEditing) {
+    return (
+      <div className={styles.eventCard}>
+        <EventFields value={draft} onChange={(patch) => setDraft({ ...draft, ...patch })} />
+
+        <div className={styles.editActions}>
+          <button type="button" onClick={handleSave}>
+            Save
+          </button>
+          <button type="button" className={styles.cancelButton} onClick={handleCancel}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className={styles.eventCard}>
       <div className={styles.eventHeader}>
         <div className={styles.eventCategory}>{event.category}</div>
-        <button
-          type="button"
-          className={styles.deleteButton}
-          title="Delete event"
-          onClick={() => onDelete(event.id)}
-        >
-          ×
-        </button>
+
+        <div className={styles.cardActions}>
+          <button
+            type="button"
+            className={styles.editButton}
+            title="Edit event"
+            onClick={handleStartEdit}
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            className={styles.deleteButton}
+            title="Delete event"
+            onClick={() => onDelete(event.id)}
+          >
+            ×
+          </button>
+        </div>
       </div>
 
       <div className={styles.eventTime}>

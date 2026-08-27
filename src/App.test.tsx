@@ -20,6 +20,7 @@ vi.mock('./lib/api/schedule', () => ({
   }),
   getScheduleEvents: vi.fn().mockResolvedValue([]),
   addScheduleEvent: vi.fn(),
+  updateScheduleEvent: vi.fn(),
   deleteScheduleEvent: vi.fn(),
 }))
 vi.mock('./lib/api/availability', () => ({

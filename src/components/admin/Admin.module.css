@@ -146,6 +146,52 @@
   text-transform: capitalize;
 }
 
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.editButton {
+  background: #ffffff;
+  color: #00205b;
+  border: 2px solid #00205b;
+  padding: 8px 18px;
+  min-height: 44px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.editButton:hover {
+  background: #00205b;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 32, 91, 0.25);
+}
+
+.editActions {
+  display: flex;
+  gap: 10px;
+}
+
+.editActions button {
+  flex: 1;
+}
+
+.cancelButton {
+  background: #ffffff;
+  color: #00205b;
+  border: 2px solid #c7cfdd;
+}
+
+.cancelButton:hover {
+  background: #edeae1;
+  color: #00205b;
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
 .deleteButton {
   background: #d9634a;
   border: none;

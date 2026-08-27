@@ -5,16 +5,22 @@ import { Navbar } from '../components/layout/Navbar'
 import { useAddScheduleEvent } from '../hooks/useAddScheduleEvent'
 import { useDeleteScheduleEvent } from '../hooks/useDeleteScheduleEvent'
 import { useScheduleEvents } from '../hooks/useScheduleEvents'
+import { useUpdateScheduleEvent } from '../hooks/useUpdateScheduleEvent'
 import type { NewScheduleEvent } from '../lib/api/schedule'
 
 export function AdminPage() {
   const eventsQuery = useScheduleEvents()
   const addEvent = useAddScheduleEvent()
+  const updateEvent = useUpdateScheduleEvent()
   const deleteEvent = useDeleteScheduleEvent()
 
   async function handleAddEvent(event: NewScheduleEvent) {
     await addEvent.mutateAsync(event)
     alert('Event added!')
+  }
+
+  async function handleUpdateEvent(id: number, event: NewScheduleEvent) {
+    await updateEvent.mutateAsync({ id, event })
   }
 
   function handleDeleteEvent(id: number) {
@@ -32,7 +38,7 @@ export function AdminPage() {
 
         <div className={styles.surveyContainer}>
           <h2>Current Events</h2>
-          <EventListByDay events={eventsQuery.data ?? []} onDelete={handleDeleteEvent} />
+          <EventListByDay events={eventsQuery.data ?? []} onDelete={handleDeleteEvent} onUpdate={handleUpdateEvent} />
         </div>
       </div>
     </div>

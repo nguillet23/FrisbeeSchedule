@@ -73,6 +73,14 @@ export async function addScheduleEvent(event: NewScheduleEvent): Promise<void> {
   }
 }
 
+export async function updateScheduleEvent(id: number, event: NewScheduleEvent): Promise<void> {
+  const { error } = await supabase.from('schedule').update(event).eq('id', id)
+
+  if (error) {
+    console.error(error)
+  }
+}
+
 export async function deleteScheduleEvent(id: number): Promise<void> {
   const { error } = await supabase.from('schedule').delete().eq('id', id)
 

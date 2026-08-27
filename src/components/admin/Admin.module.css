@@ -1,0 +1,269 @@
+/* Ported from css/admin.css, plus the `.survey-container`/`form-group`
+   rules from css/styles.css — despite living under a "Survey Styling"
+   comment header there, both classes are only ever used by admin.html, not
+   survey.html (which uses its own .survey-layout/.time-input-group).
+
+   Villanova redesign, casual pass: stone panels + Nova Blue accents/badges,
+   rounder corners and Fredoka/Nunito instead of the earlier Fraunces/mono
+   pairing — smoother and friendlier. */
+
+.surveyContainer {
+  width: 90%;
+  margin: 0 auto;
+  background: #edeae1;
+  padding: 35px;
+  border-radius: 22px;
+  box-shadow: 0 14px 32px rgba(0, 18, 51, 0.16);
+}
+
+.surveyContainer h1 {
+  margin-bottom: 25px;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 700px) {
+  .surveyContainer {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .surveyContainer h1 {
+    font-size: 1.7rem;
+  }
+}
+
+.adminPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.locationInput,
+.whatToBringInput {
+  width: 100%;
+  max-width: calc(100vw - 40px);
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 2px solid #c7cfdd;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 18, 51, 0.06);
+  color: #14171f;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.05rem;
+  outline: none;
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+.locationInput:focus,
+.whatToBringInput:focus {
+  border-color: #00205b;
+  box-shadow: 0 0 0 4px rgba(0, 32, 91, 0.2);
+  transform: translateY(-1px);
+}
+
+.whatToBringInput::placeholder {
+  color: #9aa5b8;
+}
+
+/* Event list */
+
+.eventList {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.daySection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dayHeader {
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #00205b;
+  margin: 0;
+  padding: 12px 0;
+  border-bottom: 3px solid #00205b;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+}
+
+.dayEvents {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.eventCard {
+  background: #ffffff;
+  border: 1.5px solid #d8d2c0;
+  border-radius: 18px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+  box-shadow: 0 3px 10px rgba(0, 18, 51, 0.05);
+}
+
+.eventCard:hover {
+  border-color: #00205b;
+  box-shadow: 0 10px 24px rgba(0, 18, 51, 0.14);
+  transform: translateY(-2px);
+}
+
+.eventHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.eventCategory {
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: #00205b;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 999px;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.editButton {
+  background: #ffffff;
+  color: #00205b;
+  border: 2px solid #00205b;
+  padding: 8px 18px;
+  min-height: 44px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.editButton:hover {
+  background: #00205b;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 32, 91, 0.25);
+}
+
+.editActions {
+  display: flex;
+  gap: 10px;
+}
+
+.editActions button {
+  flex: 1;
+}
+
+.cancelButton {
+  background: #ffffff;
+  color: #00205b;
+  border: 2px solid #c7cfdd;
+}
+
+.cancelButton:hover {
+  background: #edeae1;
+  color: #00205b;
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+.deleteButton {
+  background: #d9634a;
+  border: none;
+  color: white;
+  /* >=44px meets the recommended minimum touch-target size on a phone
+     (was 28px). */
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.deleteButton:hover {
+  background: #b84e39;
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(217, 99, 74, 0.35);
+}
+
+.deleteButton:active {
+  transform: scale(0.95);
+}
+
+.eventTime,
+.eventLocation,
+.eventBring {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #14171f;
+}
+
+.eventTime {
+  font-family: 'Nunito', sans-serif;
+  font-variant-numeric: tabular-nums;
+  color: #00205b;
+  font-weight: 700;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: #00205b;
+  opacity: 0.8;
+}
+
+.eventLocation {
+  color: #4a4838;
+}
+
+.eventBring {
+  color: #5a6b85;
+  font-style: italic;
+  padding: 8px 12px;
+  background: #edeae1;
+  border-radius: 10px;
+  border-left: 3px solid #00205b;
+  margin-top: 4px;
+}
+
+.emptyState {
+  color: #7a7566;
+  font-style: italic;
+  padding: 32px 16px;
+  text-align: center;
+  width: 100%;
+}

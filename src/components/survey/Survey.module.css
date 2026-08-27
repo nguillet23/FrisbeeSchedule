@@ -1,0 +1,230 @@
+/* Ported from css/survey.css, camelCase-renamed for CSS Modules.
+   Villanova redesign, casual pass: stone panels + Nova Blue accents, but
+   rounder corners and Fredoka/Nunito instead of the earlier Fraunces/mono
+   pairing — smoother and friendlier for a club team's own schedule tool. */
+
+.surveyLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 880px) {
+  .surveyLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.surveyForm {
+  min-width: 0;
+  background: #edeae1;
+  border: 2px solid #00205b;
+  border-radius: 22px;
+  padding: 24px;
+}
+
+.schedulePreviewPanel {
+  background: #edeae1;
+  border: 2px solid #00205b;
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: 0 14px 32px rgba(0, 18, 51, 0.16);
+}
+
+.previewMemberName {
+  font-weight: 700;
+  color: #00205b;
+  margin-bottom: 12px;
+}
+
+.memberSchedulePreview {
+  display: grid;
+  gap: 12px;
+}
+
+.previewDayCard {
+  background: #ffffff;
+  border: 1px solid #d8d2c0;
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.previewDayCard h3 {
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+  margin: 0 0 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #00205b;
+}
+
+.previewDayCard ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.previewDayCard li {
+  margin-bottom: 4px;
+  font-family: 'Nunito', sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.previewEmpty {
+  margin: 0;
+  color: #5a6b85;
+  font-style: italic;
+}
+
+/* Availability form */
+
+.availability {
+  background: #dcebfb;
+  padding: 10px;
+  border-radius: 18px;
+  margin-bottom: 15px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.availability select,
+.availability input[type='time'] {
+  width: 100%;
+  max-width: calc(100vw - 20px);
+  min-width: 0;
+  box-sizing: border-box;
+
+  /* >=16px avoids Safari's auto-zoom-on-focus on iOS; the original was
+     0.95rem (15.2px) here, under the threshold. */
+  font-size: 1rem;
+  padding: 12px 10px;
+  height: 50px;
+}
+
+.removeTime {
+  width: 100%;
+  font-size: 0.9rem;
+  padding: 12px 10px;
+  height: 50px;
+  background: #d9634a;
+}
+
+.removeTime:hover {
+  background: #b84e39;
+}
+
+@media (min-width: 1060px) {
+  .availability {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    align-items: center;
+    padding: 15px;
+  }
+
+  .availability select,
+  .availability input[type='time'] {
+    padding: 14px 12px;
+    height: 50px;
+  }
+
+  .removeTime {
+    width: auto;
+    font-size: 1rem;
+    padding: 14px 14px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .availability {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .availability input[type='time'],
+  .availability select,
+  .removeTime {
+    width: 100%;
+    max-width: calc(100vw - 20px);
+    box-sizing: border-box;
+    padding: 12px 10px;
+    height: 50px;
+  }
+}
+
+.addTime {
+  width: 100%;
+  margin-bottom: 20px;
+
+  background: #ffffff;
+  color: #00205b;
+
+  border: 2px solid #00205b;
+
+  padding: 14px;
+  border-radius: 14px;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.addTime:hover {
+  background: #00205b;
+  color: white;
+
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 18, 51, 0.25);
+}
+
+.addTime::before {
+  content: '+ ';
+  font-size: 1.2rem;
+}
+
+.timeInputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.timeInputGroup label {
+  font-size: 0.85rem;
+  color: #00205b;
+  font-weight: 700;
+}
+
+.timeInputGroup input {
+  width: 100%;
+  max-width: calc(100vw - 20px);
+  min-width: 0;
+  box-sizing: border-box;
+  /* >=16px avoids Safari's auto-zoom-on-focus on iOS. */
+  font-size: 1rem;
+  padding: 12px 10px;
+  height: 50px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+@media (min-width: 1060px) {
+  .timeInputGroup {
+    gap: 6px;
+  }
+
+  .timeInputGroup label {
+    font-size: 0.9rem;
+  }
+
+  .timeInputGroup input {
+    padding: 14px 12px;
+  }
+}

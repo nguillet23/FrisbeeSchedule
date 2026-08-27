@@ -24,9 +24,11 @@ The app allows users to:
 
 ## Built With
 
-* HTML
-* CSS
-* JavaScript
+* React
+* TypeScript
+* Vite
+* React Router
+* TanStack Query
 * Supabase
 
 ## Purpose
